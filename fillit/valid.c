@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 17:06:47 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/13 20:58:53 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/13 21:14:54 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,9 @@ int		find_sharps(char **line, int opt)
 		k++;
 		(*line)[i] = 'F';
 		printf("line is\n%s\n", *line);
-		if ((*line)[i + 1] == '#')
-			find_sharps(line, 0);
-		if ((*line)[i + 5] == '#')
-			find_sharps(line, 0);
-		if ((*line)[i - 1] == '#')
-			find_sharps(line, 0);
+		find_sharps(line, 0);
+		find_sharps(line, 0);
+		find_sharps(line, 0);
 	}
 	printf("k is %d\n", k);
 	return (1);
