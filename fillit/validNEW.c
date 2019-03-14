@@ -2,21 +2,35 @@
 #include "fillit.h"
 #include <stdio.h>
 
-int		check_line(char *tmp)
+int		check_line(char *tmp, int opt)
 {
 	int	i;
 
 	i = 0;
 	if (!tmp || !*tmp)
 		return (-1);
-	if (ft_strlen(tmp) != 4)
-		return (-1);
+	if (opt == 1)
+	{
+		if (tmp[i] == '\n')
+			return (1);
+		else
+			return (-1);
+	}
 	while (tmp[i])
 	{
-		if ((tmp[i] != '#') && (tmp[i] != '.'))
+		if ((tmp[i] != '#') && (tmp[i] != '.') && (i < 4))
+			return (-1);
+		else if (i == 4)
+		{
+			if (tmp[i] != '\n')
+				return (-1);
+		}
+		if (i == 5)
 			return (-1);
 		i++;
 	}
+	if (i != 5)
+		return (-1);
 	return (1);
 }
 
@@ -32,14 +46,14 @@ int		find_sharps(char **line, int i, int opt)
 	{
 		k++;
 		(*line)[i] = 'F';
-		if (i < 15 && (*line)[i + 1] == '#')
+		if (i < 20 && (*line)[i + 1] == '#')
 			find_sharps(line, i + 1, 0);
 		if (i > 0 && (*line)[i - 1] == '#')
 			find_sharps(line, i - 1, 0);
-		if (i < 12 && (*line)[i + 4] == '#')
-			find_sharps(line, i + 4, 0);
-		if (i > 3 && (*line)[i - 4] == '#')
-			find_sharps(line, i - 4, 0);
+		if (i < 16 && (*line)[i + 5] == '#')
+			find_sharps(line, i + 5, 0);
+		if (i > 4 && (*line)[i - 5] == '#')
+			find_sharps(line, i - 5, 0);
 	}
 	return (k);
 }
@@ -49,17 +63,18 @@ int		valid_line(char *line)
 	char	*tmp;
 	int		i;
 
-	tmp = (char*)malloc(sizeof(char) * 17);
+	tmp = (char*)malloc(sizeof(char) * 26);
 	tmp = ft_strcpy(tmp, line);
 	if (ft_countchars(tmp, '#') != 4)
 	{
-		free(tmp);
+		printf("ne chetire\n");
 		return (-1);
 	}
-	i = (int)ft_strchrpos(line, '#');
+	while (tmp[i] && tmp[i] != '#')
+		i++;
 	if (find_sharps(&tmp, 0, 1) != 4)
 	{
-		free(tmp);
+		printf("ne smejni\n");
 		return (-1);
 	}
 	free(tmp);
@@ -74,7 +89,8 @@ int		write_coord(int *x, int *y, char *line, int opt)
 	if (opt == 1)
 	{
 		i = 0;
-		i = ft_strchrpos(line, '#');
+		while (line[i] && (line[i] != '#'))
+			i++;
 		start = i;
 		i++;
 	}
@@ -82,8 +98,8 @@ int		write_coord(int *x, int *y, char *line, int opt)
 		i++;
 	if (line[i] == '#')
 	{
-		*x = (i % 4) - (start % 4);
-		*y = (i / 4) - (start / 4);
+		*x = (i % 5) - (start % 5);
+		*y = (i / 5) - (start / 5);
 		i++;
 	}
 	else
@@ -109,63 +125,37 @@ int		get_figure(char *line, int n, t_figure **place)
 				*place = figure;
 				return (0);
 			}
-	free(figure);
 	return (-1);
 }
 
-int			read_one_line(int fd, char **line)
+t_figure	*read_figure(int fd)
 {
-	int		i;
-	char	*tmp;
-	int		r;
-
-	i = -1;
-	while (++i < 5)
-	{
-		printf("i is %d\n", i);
-		r = get_next_line(fd, &tmp);
-		if (i != 4)
-		{
-			if (r != 1)
-				break ;
-			if (check_line(tmp) == -1)
-				break ;
-			if (!(*line = ft_strrejoin(*line, tmp)))
-				break ;
-		}
-		free(tmp);
-	}
-	if (i == 5)
-		return (1);
-	free(tmp);
-	while (get_next_line(fd, &tmp) != 0)
-		free(tmp);
-	free(tmp);
-	return (-1);
-}
-
-t_figure	*read_figure(int fd, int n)
-{
+	char		*tmp;
 	char		*line;
+	int			i;
+	static int	n = 0;
 	t_figure	*figure;
 
+	i = 0;
 	if (!(line = ft_strnew(0)))
 		return (NULL);
-	if (read_one_line(fd, &line) == -1)
+	while (i < 5)
 	{
-		free(line);
-		return (NULL);
+		if (get_next_line(fd, &tmp) == -1)
+			return (NULL);
+		if (!(tmp = ft_strrejoin(tmp, "\n"))) //reshi vopros
+			return (NULL);
+		if (((i == 4) ? check_line(tmp, 1) : check_line(tmp, 0)) == -1)
+			return (NULL);
+		if (!(line = ft_strrejoin(line, tmp)))
+			return (NULL);
+		free(tmp);
+		i++;
 	}
 	if (valid_line(line) == -1)
-	{
-		free(line);
 		return (NULL);
-	}
 	if (get_figure(line, n, &figure) == -1)
-	{
-		free(line);
 		return (NULL);
-	}
-	free(line);
+	n++;
 	return (figure);
 }
