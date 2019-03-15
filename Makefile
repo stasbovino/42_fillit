@@ -12,7 +12,7 @@
 
 NAME = fillit
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS =
 
 LIBFT = -L libft/ -lft
 
@@ -29,7 +29,6 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	make -C libft
 	gcc $(FLAGS) $(OBJ) -o $(NAME) $(LIBFT)
-	make clean
 
 $(OBJ): $(SRC)
 	gcc $(FLAGS) -c $(SRC) -Ilibft/includes
