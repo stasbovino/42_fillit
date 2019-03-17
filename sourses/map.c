@@ -1,7 +1,7 @@
 #include "fillit.h"
 #include <stdio.h>
 
-void		place_figure(int size, char ***map, t_figure *figure, t_coord pos)
+void		place_figure(int size, char ***map, t_figure *figure, t_coord *pos)
 {
 	int		i;
 	char	s;
@@ -9,21 +9,34 @@ void		place_figure(int size, char ***map, t_figure *figure, t_coord pos)
 	printf("placing\n");
 	s = figure->order;
 	i = 0;
-	(*map)[pos.y][pos.x] = s;
-	(*map)[pos.y + figure->fig.second.y][pos.x + figure->fig.second.x] = s;
-	(*map)[pos.y + figure->fig.third.y][pos.x + figure->fig.third.x] = s;
-	(*map)[pos.y + figure->fig.fourth.y][pos.x + figure->fig.fourth.x] = s;
+	(*map)[pos->y][pos->x] = s;
+	(*map)[pos->y + figure->fig.second.y][pos->x + figure->fig.second.x] = s;
+	(*map)[pos->y + figure->fig.third.y][pos->x + figure->fig.third.x] = s;
+	(*map)[pos->y + figure->fig.fourth.y][pos->x + figure->fig.fourth.x] = s;
+}
+int			vlezaet(int size, char **map, t_figure *figure, int x, int y)
+{
+	if (map[y + figure->fig.second.y][x + figure->fig.second.x] > 90 &&
+			map[y + figure->fig.second.y][x + figure->fig.second.x] < 65)
+		if (map[y + figure->fig.third.y][x + figure->fig.third.x] > 90 &&
+			map[y + figure->fig.third.y][x + figure->fig.third.x] < 65)
+			if (map[y + figure->fig.fourth.y][x + figure->fig.fourth.x] > 90 &&
+			map[y + figure->fig.fourth.y][x + figure->fig.fourth.x] < 65)
+				return (1);
+	return (-1);
 }
 
-t_coord		*find_pos(int size, char **map)
+
+t_coord		*find_pos(int size, char **map, t_figure *figure)
 {
-	t_coord	a;
+	t_coord	*a;
 	int		x;
 	int		y;
 	int		worth;
 	int		k;
 	int		i;
 
+	a = (t_coord*)malloc(sizeof(t_coord));
 	k = 2 * size - 1;
 	i = 0;
 	x = 0;
@@ -33,18 +46,25 @@ t_coord		*find_pos(int size, char **map)
 	{
 		x = i;
 		y = 0;
-		while (x >= 0)
-			while (y <= i)
+		printf("i is %d\n", i);
+		while (x >= 0 && y <= i)
+		{
+			printf("x is %d, y is %d\n", x, y);
+			if (map[y][x] > 90 && map[y][x] < 65)
 			{
 				if (x + y < worth)
 				{
-					worth = x + y;
-					a.x = x;
-					a.y = y;
+					if (vlezaet(size, map, figure, x, y) == 1)
+					{
+						worth = x + y;
+						a->x = x;
+						a->y = y;
+					}
 				}
-				x--;
-				y++;
 			}
+			x--;
+			y++;
+		}
 		i++;
 	}
 	i = 0;
@@ -52,20 +72,28 @@ t_coord		*find_pos(int size, char **map)
 	{
 		x = size;
 		y = i + 1;
-		while (x >= 0)
-			while (y <= size)
+		printf("i is %d\n", i);
+		while (x >= (size - y) && y <= size)
+		{
+			printf("x is %d, y is %d\n", x, y);
+			if (map[y][x] > 90 && map[y][x] < 65)
 			{
 				if (x + y < worth)
 				{
-					worth = x + y;
-					a.x = x;
-					a.y = y;
+					if (vlezaet(size, map, figure, x, y) == 1)
+					{
+						worth = x + y;
+						a->x = x;
+						a->y = y;
+					}
 				}
-				x--;
-				y++;
 			}
+			x--;
+			y++;
+		}
 		i++;
 	}
+	return (a);
 }
 
 char		**create_map(int *size_back, int count)
@@ -154,9 +182,9 @@ int			test(t_figure **a)
 	char	**map2;
 	int		size;
 	int		sqrt;
-	t_coord	pos;
+	t_coord	*pos;
 
-	size = 26 * 4;
+	size = 3 * 4;
 	if (!(map = create_map(&sqrt, size)))
 	{
 		printf("ne sozdal\n");
@@ -171,8 +199,10 @@ int			test(t_figure **a)
 	}
 	printf("map2 is:\n");
 	print_map(sqrt, map2);
-	pos.x = 0;
-	pos.y = 0;
+	pos->x = 0;
+	pos->y = 0;
+	pos = find_pos(size, map, a[0]); 
+	printf("pos is %d.%d\n", pos->x, pos->y);
 	place_figure(sqrt, &map, a[0], pos);
 	print_map(sqrt, map);
 	return (0);
