@@ -16,7 +16,7 @@ FLAGS =
 
 LIBFT = -L libft/ -lft
 
-CFILES = check_valid.c fillit.c get_figure.c read_figure.c
+CFILES = main.c check_valid.c fillit.c get_figure.c read_figure.c
 
 SRC_DIR = sourses/
 
