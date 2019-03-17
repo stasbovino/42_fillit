@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:01:55 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/15 14:01:57 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/17 19:26:57 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		main(int argc, char **argv)
 			printf("~~~\nfigure is\n%d.%d\n%d.%d\n%d.%d\n%d.%d\n~~~\n", a[i]->fig.first.x, a[i]->fig.first.y, a[i]->fig.second.x, a[i]->fig.second.y, a[i]->fig.third.x, a[i]->fig.third.y, a[i]->fig.fourth.x, a[i]->fig.fourth.y);
 			i++;
 		}
-		fill_it(t_figure **a, count);
+		test(a);
 		clean_them_all(a, count);
 	}
 	return (0);
