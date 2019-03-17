@@ -6,7 +6,7 @@
 #    By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/15 15:08:42 by gwyman-m          #+#    #+#              #
-#    Updated: 2019/03/15 17:25:27 by gwyman-m         ###   ########.fr        #
+#    Updated: 2019/03/17 20:04:54 by gwyman-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ FLAGS =
 
 LIBFT = -L libft/ -lft
 
-CFILES = main.c check_valid.c fillit.c get_figure.c read_figure.c
+CFILES = main.c check_valid.c get_figure.c read_figure.c map.c fillit.c
 
 SRC_DIR = sourses/
 
