@@ -8,7 +8,6 @@ void		place_figure(t_square *dst, t_figure *figure, t_coord *pos)
 	char	***map;
 
 	map = &(dst->map);
-//	printf("placing\n");
 	s = figure->order;
 	i = 0;
 	(*map)[pos->y][pos->x] = s;
@@ -19,139 +18,140 @@ void		place_figure(t_square *dst, t_figure *figure, t_coord *pos)
 
 int			check_borders(int size, int x, int y)
 {
-//	printf("		x is %d y is %d size is %d", x, y, size);
 	if (x < size && y < size && x >= 0 && y >= 0)
-	{
-//		printf(" is okay\n");
 		return (1);
-	}
 	else
-	{
-//		printf(" is not okay\n");
 		return (0);
-	}
 }
 
-int			vlezaet(t_square *src, t_figure *figure, t_coord *pos)
+int			vlezaet(t_square *src, t_figure *figure, int x, int y)
 {
 	char	**map;
-	int		x;
-	int		y;
 
-//	printf("	vlezet li?\n");
-	x = pos->x;
-	y = pos->y;
-	map = src->map;	
-	if (check_borders(src->size, y + figure->fig.second.y, x + figure->fig.second.x))
-	{
-//		printf("			map[%d][%d] is free\n", y + figure->fig.second.y, x + figure->fig.second.x);
-		if (map[y + figure->fig.second.y][x + figure->fig.second.x] > 'Z' ||
-					map[y + figure->fig.second.y][x + figure->fig.second.x]
-					< 'A')
-			if (check_borders(src->size, y + figure->fig.third.y, x + figure->fig.third.x))
-			{
-//				printf("			map[%d][%d] is free\n", y + figure->fig.third.y, x + figure->fig.third.x);
-				if (map[y + figure->fig.third.y][x + figure->fig.third.x] > 'Z'
-						|| map[y + figure->fig.third.y][x + figure->fig.third.x]
-						< 'A')
-					if (check_borders(src->size, y + figure->fig.fourth.y, x + figure->fig.fourth.x))
-					{
-//						printf("		map[%d][%d] is free\n", y + figure->fig.fourth.y, x + figure->fig.fourth.x);
-						if (map[y + figure->fig.fourth.y]
-								[x + figure->fig.fourth.x] > 'Z' ||
-								map[y + figure->fig.fourth.y]
-								[x + figure->fig.fourth.x] < 'A')
+	map = src->map;
+	if (check_borders(src->size, y + figure->fig.second.y,
+				x + figure->fig.second.x))
+		if (!(ft_isupper(map[y + figure->fig.second.y][x + figure->fig.second.x])))
+			if (check_borders(src->size, y + figure->fig.third.y,
+						x + figure->fig.third.x))
+				if (!(ft_isupper(map[y + figure->fig.third.y][x + figure->fig.third.x])))
+					if (check_borders(src->size, y + figure->fig.fourth.y,
+								x + figure->fig.fourth.x))
+						if (!(ft_isupper(map[y + figure->fig.fourth.y]
+								[x + figure->fig.fourth.x])))
 							return (1);
-					}
-			}
-	}
-//	printf("	ne vlezla\n");
 	return (-1);
+}
+
+t_coord		*first_diag(t_square *src, t_figure *figure, int k, int worth)
+{
+	int i;
+	int x;
+	int y;
+
+	i = -1;
+	while (++i < (k / 2 + 1))
+	{
+		x = i;
+		y = 0;
+		while (x >= 0 && y <= i)
+		{
+			if (!(ft_isupper((src->map)[y][x])))
+				if (x + y <= worth)
+					if (vlezaet(src, figure, x, y) == 1)
+					{
+						worth = x + y;
+						return (ft_create_coords(x, y));
+					}
+			x--;
+			y++;
+		}
+	}
+	return (NULL);
+}
+
+t_coord		*second_diag(t_square *src, t_figure *figure, int k, int worth)
+{
+	int i;
+	int x;
+	int y;
+
+	i = -1;
+	while (++i < (k / 2))
+	{
+		x = src->size - 1;
+		y = i + 1;
+		while (x >= (src->size - 1 - y) && y <= src->size - 1)
+		{
+			if (!(ft_isupper((src->map)[y][x])))
+				if (x + y < worth)
+					if (vlezaet(src, figure, x, y) == 1)
+					{
+						worth = x + y;
+						return (ft_create_coords(x, y));
+					}
+			x--;
+			y++;
+		}
+	}
+	return (NULL);
 }
 
 t_coord		*find_pos(t_square *src, t_figure *figure)
 {
 	t_coord	*a;
-	int		x;
-	int		y;
-	int		worth;
-	int		k;
-	int		i;
-	char	**map;
-	int		size;
-	t_coord	test;
+	int k;
+	int worth;
 
-//	printf("~~~\nfigure is\n%d.%d\n%d.%d\n%d.%d\n%d.%d\n~~~\n", figure->fig.first.x, figure->fig.first.y, figure->fig.second.x, figure->fig.second.y, figure->fig.third.x, figure->fig.third.y, figure->fig.fourth.x, figure->fig.fourth.y);
-	size = src->size;
-	map = src->map;
-	a = (t_coord*)malloc(sizeof(t_coord));
-	k = 2 * size - 2;
-//	printf("size is %d k is %d\n", size, k + 1);
-	i = 0;
-	x = 0;
-	y = 0;
-	worth = (size - 1) * 2;
-//	printf("worth is %d\n", worth);
-	while (i < (k / 2 + 1))
+	k = 2 * src->size - 2;
+	worth = (src->size - 1) * 2;
+	if (!(a = first_diag(src, figure, k, worth)))
+		if (!(a = second_diag(src, figure, k, worth)))
+			return (NULL);
+	return (a);
+/*	while (++i < (k / 2 + 1))
 	{
 		x = i;
 		y = 0;
-//		printf("i is %d\n", i);
 		while (x >= 0 && y <= i)
 		{
-//			printf("map[%d][%d] is %c\n", y, x, map[y][x]);
-			if (map[y][x] > 'Z' || map[y][x] < 'A')
-			{
+			if (!(ft_isupper((src->map)[y][x])))
 				if (x + y <= worth)
 				{
-					test.x = x;
-					test.y = y;
+					ft_get_coords(&test, x, y);
 					if (vlezaet(src, figure, &test) == 1)
 					{
-//						printf("writing: %d.%d\n", x, y);
 						worth = x + y;
-						a->x = x;
-						a->y = y;
+						ft_get_coords(a, x, y);
 						return (a);
 					}
 				}
-			}
 			x--;
 			y++;
 		}
-		i++;
 	}
-	i = 0;
-//	printf("the best is %d.%d\n", a->x, a->y);
-	while (i < (k / 2))
+	i = -1;
+	while (++i < (k / 2))
 	{
-		x = size - 1;
+		x = src->size - 1;
 		y = i + 1;
-//		printf("i is %d\n", i);
-		while (x >= (size - 1 - y) && y <= size - 1)
+		while (x >= (src->size - 1 - y) && y <= src->size - 1)
 		{
-//			printf("map[%d][%d] is %c\n", y, x, map[y][x]);
-			if (map[y][x] > 90 || map[y][x] < 65)
-			{
+			if (!(ft_isupper((src->map)[y][x])))
 				if (x + y < worth)
 				{
-					test.x = x;
-					test.y = y;
+					ft_get_coords(&test, x, y);
 					if (vlezaet(src, figure, &test) == 1)
 					{
-//						printf("writing: %d.%d\n", x, y);
 						worth = x + y;
-						a->x = x;
-						a->y = y;
+						ft_get_coords(a, x, y);
 						return (a);
 					}
 				}
-			}
 			x--;
 			y++;
 		}
-		i++;
-	}
+	}*/
 	return (NULL);
 }
 
@@ -163,10 +163,10 @@ t_square		*create_map(int count)
 	int			j;
 	t_square	*map;
 
-	map = (t_square*)malloc(sizeof(t_square));
+	if (!(map = (t_square*)malloc(sizeof(t_square))))
+		return (NULL);
 	i = 0;
 	size = (int)ft_sqrt(count, 1);
-//	printf("size is %d x %d\n", size, size);
 	if (!(a = (char**)malloc(sizeof(char*) * size)))
 		return (NULL);
 	while (i < size)
@@ -214,7 +214,7 @@ void		print_map(t_square *map)
 		ft_putchar('\n');
 		i++;
 	}
-	ft_putstr(" 0123456789\n");
+//	ft_putstr(" 0123456789\n");
 	return ;
 }
 
@@ -240,9 +240,9 @@ int			clean_map(t_square *map)
 
 t_square		*copy_map(t_square *src)
 {
-	int		i;
-	char	**map;
-	t_square *a;
+	int			i;
+	char		**map;
+	t_square	*a;
 	int			n;
 
 	n = src->size;

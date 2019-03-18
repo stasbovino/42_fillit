@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:17:29 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/18 16:26:35 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/18 20:19:36 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 # define FILLIT_H
 
 #include "libft.h"
-
-typedef struct		s_coord
-{
-	int				x;
-	int				y;
-}					t_coord;
 
 typedef struct		s_typeof_figure
 {
