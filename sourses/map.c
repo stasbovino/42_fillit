@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 21:07:36 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/18 21:23:56 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/18 21:58:37 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,104 +26,6 @@ void			place_figure(t_square *dst, t_figure *figure, t_coord *pos)
 	(*map)[pos->y + figure->fig.second.y][pos->x + figure->fig.second.x] = s;
 	(*map)[pos->y + figure->fig.third.y][pos->x + figure->fig.third.x] = s;
 	(*map)[pos->y + figure->fig.fourth.y][pos->x + figure->fig.fourth.x] = s;
-}
-
-int			check_borders(int size, int x, int y)
-{
-	if (x < size && y < size && x >= 0 && y >= 0)
-		return (1);
-	else
-		return (0);
-}
-
-int				vlezaet(t_square *src, t_figure *figure, int x, int y)
-{
-	char		**map;
-
-	map = src->map;
-	if (check_borders(src->size, y + figure->fig.second.y,
-				x + figure->fig.second.x))
-		if (!(ft_isupper(map[y + figure->fig.second.y]
-						[x + figure->fig.second.x])))
-			if (check_borders(src->size, y + figure->fig.third.y,
-						x + figure->fig.third.x))
-				if (!(ft_isupper(map[y + figure->fig.third.y]
-								[x + figure->fig.third.x])))
-					if (check_borders(src->size, y + figure->fig.fourth.y,
-								x + figure->fig.fourth.x))
-						if (!(ft_isupper(map[y + figure->fig.fourth.y]
-								[x + figure->fig.fourth.x])))
-							return (1);
-	return (-1);
-}
-
-t_coord			*first_diag(t_square *src, t_figure *figure, int k, int worth)
-{
-	int			i;
-	int			x;
-	int			y;
-
-	i = -1;
-	while (++i < (k / 2 + 1))
-	{
-		x = i;
-		y = 0;
-		while (x >= 0 && y <= i)
-		{
-			if (!(ft_isupper((src->map)[y][x])))
-				if (x + y <= worth)
-					if (vlezaet(src, figure, x, y) == 1)
-					{
-						worth = x + y;
-						return (ft_create_coords(x, y));
-					}
-			x--;
-			y++;
-		}
-	}
-	return (NULL);
-}
-
-t_coord			*second_diag(t_square *src, t_figure *figure, int k, int worth)
-{
-	int			i;
-	int			x;
-	int			y;
-
-	i = -1;
-	while (++i < (k / 2))
-	{
-		x = src->size - 1;
-		y = i + 1;
-		while (x >= (src->size - 1 - y) && y <= src->size - 1)
-		{
-			if (!(ft_isupper((src->map)[y][x])))
-				if (x + y < worth)
-					if (vlezaet(src, figure, x, y) == 1)
-					{
-						worth = x + y;
-						return (ft_create_coords(x, y));
-					}
-			x--;
-			y++;
-		}
-	}
-	return (NULL);
-}
-
-t_coord			*find_pos(t_square *src, t_figure *figure)
-{
-	t_coord		*a;
-	int			k;
-	int			worth;
-
-	k = 2 * src->size - 2;
-	worth = (src->size - 1) * 2;
-	if (!(a = first_diag(src, figure, k, worth)))
-		if (!(a = second_diag(src, figure, k, worth)))
-			return (NULL);
-	return (a);
-	return (NULL);
 }
 
 t_square		*create_map(int count)
@@ -169,14 +71,22 @@ void			print_map(t_square *map)
 	while (++i < n)
 	{
 		j = 0;
+		printf(" %d ", i);
+		//ft_putnbr(i);
 		while (tab[i][j])
 		{
 			if (!(ft_isupper(tab[i][j])))
-				ft_putchar('.');
+				ft_putstr(" . ");
 			else
+			{
+				ft_putchar('[');
 				ft_putchar(tab[i][j]);
+				ft_putchar(']');
+			}
 			j++;
 		}
+		ft_putchar(' ');
+		ft_putnbr(i);
 		ft_putchar('\n');
 	}
 	return ;
@@ -225,43 +135,4 @@ t_square		*copy_map(t_square *src)
 	a->map = map;
 	a->size = n;
 	return (a);
-}
-
-int				test(t_figure **a, int count)
-{
-	t_square	*map;
-	t_square	*map2;
-	int			size;
-	int			sqrt;
-	t_coord		*pos;
-	int			i;
-
-	i = 0;
-	size = count * 4;
-	if (!(map = create_map(size)))
-	{
-		printf("ne sozdal\n");
-		return (0);
-	}
-	printf("map is:\n");
-	print_map(map);
-	print_map(map2);
-	pos->x = 0;
-	pos->y = 0;
-	while (i < count)
-	{
-		if (!(pos = find_pos(map, a[i])))
-		{
-			printf("blya\n");
-			break;
-		}
-		else
-		{
-			printf("figure is %d of %d\npos is %d.%d\n", i, count, pos->x, pos->y);
-			place_figure(map, a[i], pos);
-			print_map(map);
-			i++;
-		}
-	}
-	return (0);
 }
