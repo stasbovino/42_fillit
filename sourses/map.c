@@ -56,6 +56,25 @@ t_square		*create_map(int count)
 	return (map);
 }
 
+char	*get_color(char c)
+{
+	int i;
+	char *color;
+	char *a;
+	char *new;
+
+	color = ft_strnew(0);
+	color = ft_strrejoin(color, "\033[4");
+	new = ft_strnew(0);
+	i = c % 7;
+	a = ft_itoa(i);
+	new = ft_strjoin(color, a);
+	new = ft_strjoin(new, "m");
+	i++;
+	return (new);
+}
+
+
 void			print_map(t_square *map)
 {
 	int			i;
@@ -76,18 +95,20 @@ void			print_map(t_square *map)
 		while (tab[i][j])
 		{
 			if (!(ft_isupper(tab[i][j])))
-				ft_putstr(" . ");
+				printf(" . ");
 			else
 			{
-				ft_putchar('[');
+				printf("%s[%c]%s", get_color(tab[i][j]), tab[i][j], "\033[0m");
+			/*	ft_putchar('[');
 				ft_putchar(tab[i][j]);
-				ft_putchar(']');
+				ft_putchar(']');*/
 			}
 			j++;
 		}
-		ft_putchar(' ');
+		printf(" %d\n", i);
+	/*	ft_putchar(' ');
 		ft_putnbr(i);
-		ft_putchar('\n');
+		ft_putchar('\n');*/
 	}
 	return ;
 }

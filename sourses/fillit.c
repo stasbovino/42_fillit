@@ -39,11 +39,12 @@ int				test(t_figure **a, int count)
 	}
 	printf("map is:\n");
 	print_map(map);
-	print_map(map2);
-	pos->x = 0;
-	pos->y = 0;
+	printf("end\n");
+/*	pos->x = 0;
+	pos->y = 0;*/
 	while (i < count)
 	{
+		printf("posfind\n");
 		if (!(pos = find_pos(map, a[i])))
 		{
 			printf("blya\n");
