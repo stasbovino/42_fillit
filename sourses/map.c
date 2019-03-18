@@ -8,7 +8,7 @@ void		place_figure(t_square *dst, t_figure *figure, t_coord *pos)
 	char	***map;
 
 	map = &(dst->map);
-	printf("placing\n");
+//	printf("placing\n");
 	s = figure->order;
 	i = 0;
 	(*map)[pos->y][pos->x] = s;
@@ -19,11 +19,17 @@ void		place_figure(t_square *dst, t_figure *figure, t_coord *pos)
 
 int			check_borders(int size, int x, int y)
 {
-	printf("x is %d y is %d size is %d\n", x, y, size);
-	if (x < size && y < size)
+//	printf("		x is %d y is %d size is %d", x, y, size);
+	if (x < size && y < size && x >= 0 && y >= 0)
+	{
+//		printf(" is okay\n");
 		return (1);
+	}
 	else
+	{
+//		printf(" is not okay\n");
 		return (0);
+	}
 }
 
 int			vlezaet(t_square *src, t_figure *figure, t_coord *pos)
@@ -32,26 +38,25 @@ int			vlezaet(t_square *src, t_figure *figure, t_coord *pos)
 	int		x;
 	int		y;
 
-	printf("vlezet li?\n");
-	printf("~~~\nfigure is\n%d.%d\n%d.%d\n%d.%d\n%d.%d\n~~~\n", figure->fig.first.x, figure->fig.first.y, figure->fig.second.x, figure->fig.second.y, figure->fig.third.x, figure->fig.third.y, figure->fig.fourth.x, figure->fig.fourth.y);	
+//	printf("	vlezet li?\n");
 	x = pos->x;
 	y = pos->y;
 	map = src->map;	
 	if (check_borders(src->size, y + figure->fig.second.y, x + figure->fig.second.x))
 	{
-		printf("map[%d][%d] is free\n", y + figure->fig.second.y, x + figure->fig.second.x);
+//		printf("			map[%d][%d] is free\n", y + figure->fig.second.y, x + figure->fig.second.x);
 		if (map[y + figure->fig.second.y][x + figure->fig.second.x] > 'Z' ||
 					map[y + figure->fig.second.y][x + figure->fig.second.x]
 					< 'A')
 			if (check_borders(src->size, y + figure->fig.third.y, x + figure->fig.third.x))
 			{
-				printf("map[%d][%d] is free\n", y + figure->fig.third.y, x + figure->fig.third.x);
+//				printf("			map[%d][%d] is free\n", y + figure->fig.third.y, x + figure->fig.third.x);
 				if (map[y + figure->fig.third.y][x + figure->fig.third.x] > 'Z'
 						|| map[y + figure->fig.third.y][x + figure->fig.third.x]
 						< 'A')
 					if (check_borders(src->size, y + figure->fig.fourth.y, x + figure->fig.fourth.x))
 					{
-						printf("map[%d][%d] is free\n", y + figure->fig.fourth.y, x + figure->fig.fourth.x);
+//						printf("		map[%d][%d] is free\n", y + figure->fig.fourth.y, x + figure->fig.fourth.x);
 						if (map[y + figure->fig.fourth.y]
 								[x + figure->fig.fourth.x] > 'Z' ||
 								map[y + figure->fig.fourth.y]
@@ -60,7 +65,7 @@ int			vlezaet(t_square *src, t_figure *figure, t_coord *pos)
 					}
 			}
 	}
-	printf("ne vlezla\n");
+//	printf("	ne vlezla\n");
 	return (-1);
 }
 
@@ -76,24 +81,25 @@ t_coord		*find_pos(t_square *src, t_figure *figure)
 	int		size;
 	t_coord	test;
 
+//	printf("~~~\nfigure is\n%d.%d\n%d.%d\n%d.%d\n%d.%d\n~~~\n", figure->fig.first.x, figure->fig.first.y, figure->fig.second.x, figure->fig.second.y, figure->fig.third.x, figure->fig.third.y, figure->fig.fourth.x, figure->fig.fourth.y);
 	size = src->size;
 	map = src->map;
 	a = (t_coord*)malloc(sizeof(t_coord));
 	k = 2 * size - 2;
-	printf("size is %d k is %d\n", size, k + 1);
+//	printf("size is %d k is %d\n", size, k + 1);
 	i = 0;
 	x = 0;
 	y = 0;
 	worth = (size - 1) * 2;
-	printf("worth is %d\n", worth);
+//	printf("worth is %d\n", worth);
 	while (i < (k / 2 + 1))
 	{
 		x = i;
 		y = 0;
-		printf("i is %d\n", i);
+//		printf("i is %d\n", i);
 		while (x >= 0 && y <= i)
 		{
-			printf("x is %d, y is %d, map[y][x] is %c\n", x, y, map[y][x]);
+//			printf("map[%d][%d] is %c\n", y, x, map[y][x]);
 			if (map[y][x] > 'Z' || map[y][x] < 'A')
 			{
 				if (x + y <= worth)
@@ -102,7 +108,7 @@ t_coord		*find_pos(t_square *src, t_figure *figure)
 					test.y = y;
 					if (vlezaet(src, figure, &test) == 1)
 					{
-						printf("writing: %d.%d\n", x, y);
+//						printf("writing: %d.%d\n", x, y);
 						worth = x + y;
 						a->x = x;
 						a->y = y;
@@ -116,15 +122,15 @@ t_coord		*find_pos(t_square *src, t_figure *figure)
 		i++;
 	}
 	i = 0;
-	printf("the best is %d.%d\n", a->x, a->y);
+//	printf("the best is %d.%d\n", a->x, a->y);
 	while (i < (k / 2))
 	{
 		x = size - 1;
 		y = i + 1;
-		printf("i is %d\n", i);
+//		printf("i is %d\n", i);
 		while (x >= (size - 1 - y) && y <= size - 1)
 		{
-			printf("x is %d, y is %d, map[y][x] is %c\n", x, y, map[y][x]);
+//			printf("map[%d][%d] is %c\n", y, x, map[y][x]);
 			if (map[y][x] > 90 || map[y][x] < 65)
 			{
 				if (x + y < worth)
@@ -133,7 +139,7 @@ t_coord		*find_pos(t_square *src, t_figure *figure)
 					test.y = y;
 					if (vlezaet(src, figure, &test) == 1)
 					{
-						printf("writing: %d.%d\n", x, y);
+//						printf("writing: %d.%d\n", x, y);
 						worth = x + y;
 						a->x = x;
 						a->y = y;
@@ -160,7 +166,7 @@ t_square		*create_map(int count)
 	map = (t_square*)malloc(sizeof(t_square));
 	i = 0;
 	size = (int)ft_sqrt(count, 1);
-	printf("size is %d x %d\n", size, size);
+//	printf("size is %d x %d\n", size, size);
 	if (!(a = (char**)malloc(sizeof(char*) * size)))
 		return (NULL);
 	while (i < size)
@@ -196,6 +202,7 @@ void		print_map(t_square *map)
 	while (i < n)
 	{
 		j = 0;
+		ft_putnbr(i);
 		while (tab[i][j])
 		{
 			if (tab[i][j] > 'Z' || tab[i][j] < 'A')
@@ -207,6 +214,7 @@ void		print_map(t_square *map)
 		ft_putchar('\n');
 		i++;
 	}
+	ft_putstr(" 0123456789\n");
 	return ;
 }
 
@@ -273,12 +281,6 @@ int				test(t_figure **a, int count)
 	}
 	printf("map is:\n");
 	print_map(map);
-	if (!(map2 = copy_map(map)))
-	{
-		printf("ne skopiroval\n");
-		return (0);
-	}
-	printf("map2 is:\n");
 	print_map(map2);
 	pos->x = 0;
 	pos->y = 0;
