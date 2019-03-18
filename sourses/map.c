@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/18 21:07:36 by gwyman-m          #+#    #+#             */
+/*   Updated: 2019/03/18 21:23:56 by gwyman-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 #include <stdio.h>
 
-void		place_figure(t_square *dst, t_figure *figure, t_coord *pos)
+void			place_figure(t_square *dst, t_figure *figure, t_coord *pos)
 {
-	int		i;
-	char	s;
-	char	***map;
+	int			i;
+	char		s;
+	char		***map;
 
 	map = &(dst->map);
 	s = figure->order;
@@ -24,17 +36,19 @@ int			check_borders(int size, int x, int y)
 		return (0);
 }
 
-int			vlezaet(t_square *src, t_figure *figure, int x, int y)
+int				vlezaet(t_square *src, t_figure *figure, int x, int y)
 {
-	char	**map;
+	char		**map;
 
 	map = src->map;
 	if (check_borders(src->size, y + figure->fig.second.y,
 				x + figure->fig.second.x))
-		if (!(ft_isupper(map[y + figure->fig.second.y][x + figure->fig.second.x])))
+		if (!(ft_isupper(map[y + figure->fig.second.y]
+						[x + figure->fig.second.x])))
 			if (check_borders(src->size, y + figure->fig.third.y,
 						x + figure->fig.third.x))
-				if (!(ft_isupper(map[y + figure->fig.third.y][x + figure->fig.third.x])))
+				if (!(ft_isupper(map[y + figure->fig.third.y]
+								[x + figure->fig.third.x])))
 					if (check_borders(src->size, y + figure->fig.fourth.y,
 								x + figure->fig.fourth.x))
 						if (!(ft_isupper(map[y + figure->fig.fourth.y]
@@ -43,11 +57,11 @@ int			vlezaet(t_square *src, t_figure *figure, int x, int y)
 	return (-1);
 }
 
-t_coord		*first_diag(t_square *src, t_figure *figure, int k, int worth)
+t_coord			*first_diag(t_square *src, t_figure *figure, int k, int worth)
 {
-	int i;
-	int x;
-	int y;
+	int			i;
+	int			x;
+	int			y;
 
 	i = -1;
 	while (++i < (k / 2 + 1))
@@ -70,11 +84,11 @@ t_coord		*first_diag(t_square *src, t_figure *figure, int k, int worth)
 	return (NULL);
 }
 
-t_coord		*second_diag(t_square *src, t_figure *figure, int k, int worth)
+t_coord			*second_diag(t_square *src, t_figure *figure, int k, int worth)
 {
-	int i;
-	int x;
-	int y;
+	int			i;
+	int			x;
+	int			y;
 
 	i = -1;
 	while (++i < (k / 2))
@@ -97,11 +111,11 @@ t_coord		*second_diag(t_square *src, t_figure *figure, int k, int worth)
 	return (NULL);
 }
 
-t_coord		*find_pos(t_square *src, t_figure *figure)
+t_coord			*find_pos(t_square *src, t_figure *figure)
 {
-	t_coord	*a;
-	int k;
-	int worth;
+	t_coord		*a;
+	int			k;
+	int			worth;
 
 	k = 2 * src->size - 2;
 	worth = (src->size - 1) * 2;
@@ -109,49 +123,6 @@ t_coord		*find_pos(t_square *src, t_figure *figure)
 		if (!(a = second_diag(src, figure, k, worth)))
 			return (NULL);
 	return (a);
-/*	while (++i < (k / 2 + 1))
-	{
-		x = i;
-		y = 0;
-		while (x >= 0 && y <= i)
-		{
-			if (!(ft_isupper((src->map)[y][x])))
-				if (x + y <= worth)
-				{
-					ft_get_coords(&test, x, y);
-					if (vlezaet(src, figure, &test) == 1)
-					{
-						worth = x + y;
-						ft_get_coords(a, x, y);
-						return (a);
-					}
-				}
-			x--;
-			y++;
-		}
-	}
-	i = -1;
-	while (++i < (k / 2))
-	{
-		x = src->size - 1;
-		y = i + 1;
-		while (x >= (src->size - 1 - y) && y <= src->size - 1)
-		{
-			if (!(ft_isupper((src->map)[y][x])))
-				if (x + y < worth)
-				{
-					ft_get_coords(&test, x, y);
-					if (vlezaet(src, figure, &test) == 1)
-					{
-						worth = x + y;
-						ft_get_coords(a, x, y);
-						return (a);
-					}
-				}
-			x--;
-			y++;
-		}
-	}*/
 	return (NULL);
 }
 
@@ -173,55 +144,48 @@ t_square		*create_map(int count)
 	{
 		if (!(a[i] = (char*)malloc(sizeof(char) * (size + 1))))
 			return (NULL);
-		j = 0;
-		while (j < size)
-		{
+		j = -1;
+		while (++j < size)
 			a[i][j] = i + j + 97;
-			j++;
-		}
-		a[i][size] = '\0';
-		i++;
+		a[i++][size] = '\0';
 	}
 	map->map = a;
 	map->size = size;
 	return (map);
 }
 
-void		print_map(t_square *map)
+void			print_map(t_square *map)
 {
-	int		i;
-	int		j;
-	int		n;
-	char	**tab;
+	int			i;
+	int			j;
+	int			n;
+	char		**tab;
 
 	if (!map)
 		return ;
 	n = map->size;
 	tab = map->map;
-	i = 0;
-	while (i < n)
+	i = -1;
+	while (++i < n)
 	{
 		j = 0;
-		ft_putnbr(i);
 		while (tab[i][j])
 		{
-			if (tab[i][j] > 'Z' || tab[i][j] < 'A')
+			if (!(ft_isupper(tab[i][j])))
 				ft_putchar('.');
 			else
 				ft_putchar(tab[i][j]);
 			j++;
 		}
 		ft_putchar('\n');
-		i++;
 	}
-//	ft_putstr(" 0123456789\n");
 	return ;
 }
 
-int			clean_map(t_square *map)
+int				clean_map(t_square *map)
 {
-	int		i;
-	int		n;
+	int			i;
+	int			n;
 
 	n = map->size;
 	i = 0;
