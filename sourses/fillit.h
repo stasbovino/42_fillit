@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:17:29 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/18 15:33:39 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/18 16:26:35 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,20 @@ typedef struct		s_figure
 	t_typeof_figure	fig;
 }					t_figure;
 
+typedef struct		s_square
+{
+	char	**map;
+	int		size;
+}					t_square;
+
 int					test(t_figure **a, int count);
 
-void				place_figure(int size, char ***map, t_figure *figure, t_coord *pos);
-t_coord				*find_pos(int size, char **map, t_figure *figure);
-char				**create_map(int *size_back, int count);
-void				print_map(int size, char **map);
-int					clean_map(int size, char **map);
-char				**copy_map(int size, char **src);
+void				place_figure(t_square *dst, t_figure *figure, t_coord *pos);
+t_coord				*find_pos(t_square *src, t_figure *figure);
+t_square			*create_map(int count);
+void				print_map(t_square *map);
+int					clean_map(t_square *map);
+t_square			*copy_map(t_square *src);
 
 int					count_figures(int fd);/*fillit.c*/
 int					clean_them_all(t_figure **a, int count);
