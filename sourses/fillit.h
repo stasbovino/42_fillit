@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:17:29 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/17 21:34:38 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/18 15:33:39 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct		s_figure
 	t_typeof_figure	fig;
 }					t_figure;
 
-int					test(t_figure **a);
+int					test(t_figure **a, int count);
 
 void				place_figure(int size, char ***map, t_figure *figure, t_coord *pos);
 t_coord				*find_pos(int size, char **map, t_figure *figure);
