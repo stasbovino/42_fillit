@@ -17,6 +17,15 @@ void		place_figure(t_square *dst, t_figure *figure, t_coord *pos)
 	(*map)[pos->y + figure->fig.fourth.y][pos->x + figure->fig.fourth.x] = s;
 }
 
+int			check_borders(int size, int x, int y)
+{
+	printf("x is %d y is %d size is %d\n", x, y, size);
+	if (x < size && y < size)
+		return (1);
+	else
+		return (0);
+}
+
 int			vlezaet(t_square *src, t_figure *figure, t_coord *pos)
 {
 	char	**map;
@@ -27,21 +36,30 @@ int			vlezaet(t_square *src, t_figure *figure, t_coord *pos)
 	printf("~~~\nfigure is\n%d.%d\n%d.%d\n%d.%d\n%d.%d\n~~~\n", figure->fig.first.x, figure->fig.first.y, figure->fig.second.x, figure->fig.second.y, figure->fig.third.x, figure->fig.third.y, figure->fig.fourth.x, figure->fig.fourth.y);	
 	x = pos->x;
 	y = pos->y;
-	map = src->map;
-	if (map[y + figure->fig.second.y][x + figure->fig.second.x])
+	map = src->map;	
+	if (check_borders(src->size, y + figure->fig.second.y, x + figure->fig.second.x))
+	{
+		printf("map[%d][%d] is free\n", y + figure->fig.second.y, x + figure->fig.second.x);
 		if (map[y + figure->fig.second.y][x + figure->fig.second.x] > 'Z' ||
 					map[y + figure->fig.second.y][x + figure->fig.second.x]
 					< 'A')
-			if (map[y + figure->fig.third.y][x + figure->fig.third.x])
+			if (check_borders(src->size, y + figure->fig.third.y, x + figure->fig.third.x))
+			{
+				printf("map[%d][%d] is free\n", y + figure->fig.third.y, x + figure->fig.third.x);
 				if (map[y + figure->fig.third.y][x + figure->fig.third.x] > 'Z'
 						|| map[y + figure->fig.third.y][x + figure->fig.third.x]
 						< 'A')
-					if (map[y + figure->fig.fourth.y][x + figure->fig.fourth.x])
+					if (check_borders(src->size, y + figure->fig.fourth.y, x + figure->fig.fourth.x))
+					{
+						printf("map[%d][%d] is free\n", y + figure->fig.fourth.y, x + figure->fig.fourth.x);
 						if (map[y + figure->fig.fourth.y]
 								[x + figure->fig.fourth.x] > 'Z' ||
 								map[y + figure->fig.fourth.y]
 								[x + figure->fig.fourth.x] < 'A')
 							return (1);
+					}
+			}
+	}
 	printf("ne vlezla\n");
 	return (-1);
 }
