@@ -44,7 +44,6 @@ int		clean_them_all(t_figure **a, int count)
 	i = 0;
 	while (i < count)
 	{
-		printf("freed %d\n", i);
 		free(a[i]);
 		i++;
 	}

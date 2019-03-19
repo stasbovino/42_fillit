@@ -24,7 +24,6 @@ int			fill_it(t_figure **figures, int count)
 int				test(t_figure **a, int count)
 {
 	t_square	*map;
-	t_square	*map2;
 	int			size;
 	int			sqrt;
 	t_coord		*pos;
@@ -40,8 +39,6 @@ int				test(t_figure **a, int count)
 	printf("map is:\n");
 	print_map(map);
 	printf("end\n");
-/*	pos->x = 0;
-	pos->y = 0;*/
 	while (i < count)
 	{
 		printf("posfind\n");
@@ -52,12 +49,14 @@ int				test(t_figure **a, int count)
 		}
 		else
 		{
-			printf("figure is %d of %d\npos is %d.%d\n", i, count, pos->x, pos->y);
+			printf("figure is %d of %d\npos is %d.%d\n", i + 1, count, pos->x, pos->y);
 			place_figure(map, a[i], pos);
 			print_map(map);
+			free(pos);
 			i++;
 		}
 	}
+	clean_map(map);
 	return (0);
 }
 
