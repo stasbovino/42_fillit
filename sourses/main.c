@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:01:55 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/18 21:37:24 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/23 19:32:51 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,27 +69,29 @@ int		main(int argc, char **argv)
 		fd = open(argv[1], O_RDONLY);
 		if ((count = (int)count_figures(fd)) == -1)
 		{
-			printf("mnogo ili malo figur ili slashenov\n\n");
+			printf("error\n");
 			return (0);
 		}
 		close(fd);
 		fd = open(argv[1], O_RDONLY);
-		printf("%d figures\n\n", count);
+	//	printf("%d figures\n\n", count);
 		a = (t_figure**)malloc(sizeof(t_figure*) * count);
 		while (i < count)
 		{
 			a[i] = read_figure(fd, i);
 			if (!a[i])
 			{
-				printf("a[%d] ne schitalos' invalid\n", i);
+			//	printf("a[%d] ne schitalos' invalid\n", i);
+				printf("error\n");
 				clean_them_all(a, count);
 				return (0);
 			}
-			printf("order is %c\n", a[i]->order);
-			printf("~~~\nfigure is\n%d.%d\n%d.%d\n%d.%d\n%d.%d\n~~~\n", a[i]->fig.first.x, a[i]->fig.first.y, a[i]->fig.second.x, a[i]->fig.second.y, a[i]->fig.third.x, a[i]->fig.third.y, a[i]->fig.fourth.x, a[i]->fig.fourth.y);
+	//		printf("order is %c\n", a[i]->order);
+	//		printf("~~~\nfigure is\n%d.%d\n%d.%d\n%d.%d\n%d.%d\n~~~\n", a[i]->fig.first.x, a[i]->fig.first.y, a[i]->fig.second.x, a[i]->fig.second.y, a[i]->fig.third.x, a[i]->fig.third.y, a[i]->fig.fourth.x, a[i]->fig.fourth.y);
 			i++;
 		}
-		test(a, count);
+		printf("count is %d\n", count);
+		test(a, count, (int)ft_sqrt((count * 4), 1));
 		clean_them_all(a, count);
 	}
 	return (0);

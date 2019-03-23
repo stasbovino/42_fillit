@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 21:32:46 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/23 15:31:26 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/23 20:34:17 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 int				check_borders(int size, int x, int y)
 {
 	if (x < size && y < size && x >= 0 && y >= 0)
+		return (1);
+	else
+		return (0);
+}
+
+int		is_free(int c)
+{
+	if (c == '.')
 		return (1);
 	else
 		return (0);
@@ -55,10 +63,12 @@ t_coord			*first_diag(t_square *src, t_figure *figure, int k, int worth)
 		y = 0;
 		while (x >= 0 && y <= i)
 		{
-			if (!(ft_isupper((src->map)[y][x])))
+	//		printf("x is %d y is %d = %c\n", x, y, (src->map)[y][x]);
+			if ((is_free((src->map)[y][x])))
 				if (x + y <= worth)
 					if (is_figure_fit(src, figure, x, y) == 1)
 					{
+	//					printf("x is %d y is %d = %c\n", x, y, (src->map)[y][x]);
 						worth = x + y;
 						return (ft_create_coords(x, y));
 					}
@@ -82,10 +92,11 @@ t_coord			*second_diag(t_square *src, t_figure *figure, int k, int worth)
 		y = i + 1;
 		while (x >= (src->size - 1 - y) && y <= src->size - 1)
 		{
-			if (!(ft_isupper((src->map)[y][x])))
+			if ((is_free((src->map)[y][x])))
 				if (x + y < worth)
 					if (is_figure_fit(src, figure, x, y) == 1)
 					{
+	//					printf("x is %d y is %d = %c\n", x, y, (src->map)[y][x]);
 						worth = x + y;
 						return (ft_create_coords(x, y));
 					}
@@ -115,17 +126,20 @@ t_coord			*second_diag(t_square *src, t_figure *figure, int k, int worth)
  *	.							. . .
  */
 
-t_coord			*find_pos(t_square *src, t_figure *figure)
+t_coord				*find_pos(t_square *src, t_figure *figure)
 {
-	t_coord		*a;
-	int			k;
-	int			worth;
+	t_coord			*a;
+	int				k;
+	int				worth;
 
 	k = 2 * src->size - 2;
 	worth = (src->size - 1) * 2;
 	if (!(a = first_diag(src, figure, k, worth)))
+	{
+	//	printf("net\n");
 		if (!(a = second_diag(src, figure, k, worth)))
 			return (NULL);
+	}
+	(src->map)[a->y][a->x] = '!';
 	return (a);
-	return (NULL);
 }
