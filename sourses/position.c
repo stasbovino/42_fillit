@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 21:32:46 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/23 20:34:17 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/23 21:44:26 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int				is_figure_fit(t_square *src, t_figure *figure, int x, int y)
 	return (-1);
 }
 
-t_coord			*first_diag(t_square *src, t_figure *figure, int k, int worth)
+/*t_coord			*first_diag(t_square *src, t_figure *figure, int k, int worth)
 {
 	int			i;
 	int			x;
@@ -105,7 +105,34 @@ t_coord			*second_diag(t_square *src, t_figure *figure, int k, int worth)
 		}
 	}
 	return (NULL);
+} */
+
+t_coord			*find_place(t_square *src, t_figure *figure)
+{
+	int			i;
+	int			x;
+	int			y;
+	int			size;
+
+	size = src->size;
+	i = -1;
+	y = -1;
+	while (++y < size)
+	{
+		x = -1;
+		while (++x < size)
+		{
+			if ((is_free((src->map)[y][x])))
+				if (is_figure_fit(src, figure, x, y) == 1)
+				{
+	//				printf("x is %d y is %d = %c\n", x, y, (src->map)[y][x]);
+					return (ft_create_coords(x, y));
+				}
+		}
+	}
+	return (NULL);
 }
+
 
 /*
  *	search the free position for figure on map
@@ -134,10 +161,9 @@ t_coord				*find_pos(t_square *src, t_figure *figure)
 
 	k = 2 * src->size - 2;
 	worth = (src->size - 1) * 2;
-	if (!(a = first_diag(src, figure, k, worth)))
+	if (!(a = find_place(src, figure)))
 	{
 	//	printf("net\n");
-		if (!(a = second_diag(src, figure, k, worth)))
 			return (NULL);
 	}
 	(src->map)[a->y][a->x] = '!';

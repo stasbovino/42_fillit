@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:01:55 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/23 19:32:51 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/23 21:24:27 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		main(int argc, char **argv)
 	//		printf("~~~\nfigure is\n%d.%d\n%d.%d\n%d.%d\n%d.%d\n~~~\n", a[i]->fig.first.x, a[i]->fig.first.y, a[i]->fig.second.x, a[i]->fig.second.y, a[i]->fig.third.x, a[i]->fig.third.y, a[i]->fig.fourth.x, a[i]->fig.fourth.y);
 			i++;
 		}
-		printf("count is %d\n", count);
+//		printf("count is %d\n", count);
 		test(a, count, (int)ft_sqrt((count * 4), 1));
 		clean_them_all(a, count);
 	}

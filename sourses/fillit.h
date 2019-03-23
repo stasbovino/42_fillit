@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:17:29 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/23 19:49:24 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/23 21:42:13 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ int					test(t_figure **a, int count, int size);
 void				delete_figure(t_square *dst, t_figure *figure, t_coord *pos);
 void				place_figure(t_square *dst, t_figure *figure, t_coord *pos);
 t_coord				*find_pos(t_square *src, t_figure *figure);
-t_coord				*first_diag(t_square *src, t_figure *figure, int k, int worth);
-t_coord				*second_diag(t_square *src, t_figure *figure, int k, int worth);
 
 int					is_figure_fit(t_square *src, t_figure *figure, int x, int y);
 int					check_borders(int size, int x, int y);
