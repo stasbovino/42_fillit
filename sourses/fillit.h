@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:17:29 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/18 21:38:17 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/23 15:44:05 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 #include "libft.h"
 #include <stdio.h>
 
+/*
+ *	structure for coords of figure
+ */
+
 typedef struct		s_typeof_figure
 {
 	t_coord			first;
@@ -24,11 +28,19 @@ typedef struct		s_typeof_figure
 	t_coord			fourth;
 }					t_typeof_figure;
 
+/*
+ *	structure for figure in order of appearance in file
+ */
+
 typedef struct		s_figure
 {
 	char			order;
 	t_typeof_figure	fig;
 }					t_figure;
+
+/*
+ *	structure for map
+ */
 
 typedef struct		s_square
 {

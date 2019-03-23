@@ -6,12 +6,16 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:10:00 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/15 14:21:18 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/23 15:35:15 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
+
+/*
+ *	read one figure and check it for valid
+ */
 
 int				end_reading(int fd)
 {

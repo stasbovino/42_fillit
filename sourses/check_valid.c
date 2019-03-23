@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:01:40 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/23 15:11:05 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/23 15:40:37 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,10 @@ int				find_sharps(char **line, int i, int opt)
 
 /*
  *	checking the figure represented in one line without \n
+ *	
  *	e.g.	"..#...#...#...#."
  *			"......##..##...."
+ *	
  *	the number of '#' must be 4 and each other must be nearbly with other '#'
  */
 
