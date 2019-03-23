@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 21:32:46 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/18 21:36:14 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/23 15:31:26 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,25 @@ t_coord			*second_diag(t_square *src, t_figure *figure, int k, int worth)
 	}
 	return (NULL);
 }
+
+/*
+ *	search the free position for figure on map
+ *	worth of position is a sum of it (x + y)
+ *	
+ *	we are interested in placing figure on position
+ *	that has the best sum of coord
+ *	
+ *	figures with the same sum of coord are placed on
+ *	one diagonal, so functions first_diag and second_diag
+ *	searching the best and free place on first half of map and
+ *	second half respectively
+ *
+ *	first half is:			second half is:
+ *	. . . .
+ *	. . .							.
+ *	. .							  . .
+ *	.							. . .
+ */
 
 t_coord			*find_pos(t_square *src, t_figure *figure)
 {
