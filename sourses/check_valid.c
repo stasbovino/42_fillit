@@ -6,17 +6,12 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:01:40 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/23 15:40:37 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/23 22:05:34 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
-
-/*
- *	checking one line of file for other symbols besides '#' and '.'
- *							  and length of line must be 4
- */
 
 int				check_line(char *tmp)
 {
@@ -35,17 +30,6 @@ int				check_line(char *tmp)
 	}
 	return (1);
 }
-
-/*
- *	recursive func for checking the figure
- *	represented in one line without \n
- *	for valid figure in it
- *
- *	counting the number of nearbly sharps
- *	it must be 4 for valid figure
- *
- *	"..#...#...#...#."
- */
 
 int				find_sharps(char **line, int i, int opt)
 {
@@ -70,15 +54,6 @@ int				find_sharps(char **line, int i, int opt)
 	}
 	return (k);
 }
-
-/*
- *	checking the figure represented in one line without \n
- *	
- *	e.g.	"..#...#...#...#."
- *			"......##..##...."
- *	
- *	the number of '#' must be 4 and each other must be nearbly with other '#'
- */
 
 int				valid_line(char *line)
 {

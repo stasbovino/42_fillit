@@ -6,16 +6,12 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:10:00 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/23 15:35:15 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/23 22:58:13 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
-
-/*
- *	read one figure and check it for valid
- */
 
 int				end_reading(int fd)
 {
@@ -38,14 +34,9 @@ int				read_one_line(int fd, char **line)
 	{
 		r = get_next_line(fd, &tmp);
 		if (i != 4)
-		{
-			if (r != 1)
+			if (r == -1 || check_line(tmp) == -1 ||
+					!(*line = ft_strrejoin(*line, tmp)))
 				break ;
-			if (check_line(tmp) == -1)
-				break ;
-			if (!(*line = ft_strrejoin(*line, tmp)))
-				break ;
-		}
 		free(tmp);
 	}
 	if (i == 5)
@@ -61,17 +52,8 @@ t_figure		*read_figure(int fd, int n)
 
 	if (!(line = ft_strnew(0)))
 		return (NULL);
-	if (read_one_line(fd, &line) == -1)
-	{
-		free(line);
-		return (NULL);
-	}
-	if (valid_line(line) == -1)
-	{
-		free(line);
-		return (NULL);
-	}
-	if (get_figure(line, n, &figure) == -1)
+	if (read_one_line(fd, &line) == -1 || valid_line(line) == -1 ||
+			get_figure(line, n, &figure) == -1)
 	{
 		free(line);
 		return (NULL);

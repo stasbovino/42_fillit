@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:01:55 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/23 21:24:27 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/23 23:08:43 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,17 @@ int		clean_them_all(t_figure **a, int count)
 	return (-1);
 }
 
+void	print_usage(void)
+{
+}
+
+int		print_error(int fd)
+{
+	close(fd);
+	printf("error\n");
+	exit(1);
+}
+
 int		main(int argc, char **argv)
 {
 	int			fd;
@@ -59,39 +70,24 @@ int		main(int argc, char **argv)
 	int			i;
 	int			count;
 
-	if (argc == 1)
+	if (argc != 2)
+		print_usage();
+	else
 	{
-		printf("**usage**");
-	}
-	if (argc == 2)
-	{
-		i = 0;
+		i = -1;
 		fd = open(argv[1], O_RDONLY);
 		if ((count = (int)count_figures(fd)) == -1)
-		{
-			printf("error\n");
-			return (0);
-		}
+			print_error(fd);
 		close(fd);
 		fd = open(argv[1], O_RDONLY);
-	//	printf("%d figures\n\n", count);
-		a = (t_figure**)malloc(sizeof(t_figure*) * count);
-		while (i < count)
+		if (!(a = (t_figure**)malloc(sizeof(t_figure*) * count)))
+			print_error(fd);
+		while (++i < count)
 		{
-			a[i] = read_figure(fd, i);
-			if (!a[i])
-			{
-			//	printf("a[%d] ne schitalos' invalid\n", i);
-				printf("error\n");
-				clean_them_all(a, count);
-				return (0);
-			}
-	//		printf("order is %c\n", a[i]->order);
-	//		printf("~~~\nfigure is\n%d.%d\n%d.%d\n%d.%d\n%d.%d\n~~~\n", a[i]->fig.first.x, a[i]->fig.first.y, a[i]->fig.second.x, a[i]->fig.second.y, a[i]->fig.third.x, a[i]->fig.third.y, a[i]->fig.fourth.x, a[i]->fig.fourth.y);
-			i++;
+			if (!(a[i] = read_figure(fd, i)))
+				print_error(fd);
 		}
-//		printf("count is %d\n", count);
-		test(a, count, (int)ft_sqrt((count * 4), 1));
+		get_solution(a, count, (int)ft_sqrt((count * 4), 1));
 		clean_them_all(a, count);
 	}
 	return (0);

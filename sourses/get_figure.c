@@ -6,20 +6,12 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:01:47 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/23 15:40:24 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/23 22:16:42 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
-
-/*
- *	at this moment we sure that figure is valid
- *	and we get it in structure with 4 coords
- *
- *	first coord is always 0.0 because from this point we start
- *	to place figure and other coords are relative to first
- */
 
 int				write_coord(int *x, int *y, char *line, int opt)
 {
