@@ -6,26 +6,44 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 21:37:38 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/18 21:37:50 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/22 19:41:17 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-/*
-int			fill_it(t_figure **figures, int count)
+
+/*int				fill_it(t_figure **figures, int count)
 {
-	char	**map;
-	char	**thebest
+	t_square	*map;
+	char		order[count + 1];
+	static int	size = count * 4;
 
-	if (create_map(&map, count * 4) != 1)
-		return (-1);
-}*/
+	order[count] = '\0';
+	if (!(map = create_map(count * 4)))
+	{
+		printf("ne sozdal\n");
+		return (0);
+	}
 
+}
+
+char			*create_order(char *order)
+{
+	if (order[count])
+	{
+		order[count]
+	}
+	else
+	{
+
+		return (*order);
+	}
+}
+*/
 int				test(t_figure **a, int count)
 {
 	t_square	*map;
 	int			size;
-	int			sqrt;
 	t_coord		*pos;
 	int			i;
 

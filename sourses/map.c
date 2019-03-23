@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 21:07:36 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/18 21:58:37 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/21 17:11:30 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*get_color(char c)
 
 	i = c % 7 + 1;
 	a = ft_itoa(i);
-	new = ft_strjoin("\033[4", a);
+	new = ft_strjoin("\033[3", a);
 	new = ft_strrejoin(new, "m");
 	free(a);
 	i++;

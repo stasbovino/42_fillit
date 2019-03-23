@@ -6,13 +6,13 @@
 #    By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/15 15:08:42 by gwyman-m          #+#    #+#              #
-#    Updated: 2019/03/18 21:39:13 by gwyman-m         ###   ########.fr        #
+#    Updated: 2019/03/21 18:24:07 by gwyman-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fillit
 
-FLAGS =
+FLAGS = -Wall -Wextra -Werror
 
 LIBFT = -L libft/ -lft
 
@@ -27,7 +27,7 @@ OBJ = $(CFILES:%.c=%.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(SRC_DIR)fillit.h
 	make -C libft
 	gcc $(FLAGS) $(OBJ) -o $(NAME) $(LIBFT)
 
