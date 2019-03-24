@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include <stdio.h>
 
 int				fill_it(t_square **map, t_figure **figures, int count, int i)
 {
@@ -20,34 +21,38 @@ int				fill_it(t_square **map, t_figure **figures, int count, int i)
 
 	if (!(tmp = copy_map(*map)))
 		return (-1);
+//	printf("~~ FIGURE IS %d ~~\n", i);
 	if (i < count)
 	{
 		while ((pos = find_pos(tmp, figures[i])))
 		{
 			place_figure(tmp, figures[i], pos);
+//			print_map(tmp);
 			if ((ret = fill_it(&tmp, figures, count, i + 1)) == -1)
+			{
 				del_figure(tmp, figures[i], pos);
+//				printf("Не смог подставить\n");
+//				print_map(tmp);
+			}
 			else
 			{
 				if (ret == 0)
 					print_map(tmp);
-				free(tmp);
+				clean_map(tmp);
 				return (1);
 			}
 		}
-		free(tmp);
+		clean_map(tmp);
 		return (-1);
 	}
-	free(tmp);
+	clean_map(tmp);
 	return (0);
 }
 
 int				get_solution(t_figure **a, int count, int size)
 {
 	t_square	*map;
-	int			i;
 
-	i = 0;
 	if (!(map = create_map(size)))
 		return (-1);
 	while (fill_it(&map, a, count, 0) != 1)

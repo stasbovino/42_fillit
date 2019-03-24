@@ -58,7 +58,6 @@ int				find_sharps(char **line, int i, int opt)
 int				valid_line(char *line)
 {
 	char		*tmp;
-	int			i;
 
 	tmp = (char*)malloc(sizeof(char) * 17);
 	tmp = ft_strcpy(tmp, line);
@@ -67,7 +66,6 @@ int				valid_line(char *line)
 		free(tmp);
 		return (-1);
 	}
-	i = (int)ft_strchrpos(line, '#');
 	if (find_sharps(&tmp, 0, 1) != 4)
 	{
 		free(tmp);

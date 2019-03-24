@@ -14,13 +14,11 @@
 
 void			place_figure(t_square *dst, t_figure *figure, t_coord *pos)
 {
-	int			i;
 	char		s;
 	char		***map;
 
 	map = &(dst->map);
 	s = figure->order;
-	i = 0;
 	(*map)[pos->y][pos->x] = s;
 	(*map)[pos->y + figure->fig.second.y][pos->x + figure->fig.second.x] = s;
 	(*map)[pos->y + figure->fig.third.y][pos->x + figure->fig.third.x] = s;
@@ -29,13 +27,9 @@ void			place_figure(t_square *dst, t_figure *figure, t_coord *pos)
 
 void			del_figure(t_square *dst, t_figure *figure, t_coord *pos)
 {
-	int			i;
-	char		s;
 	char		***map;
 
 	map = &(dst->map);
-	s = figure->order;
-	i = 0;
 	(*map)[pos->y][pos->x] = '!';
 	(*map)[pos->y + figure->fig.second.y][pos->x + figure->fig.second.x] = '.';
 	(*map)[pos->y + figure->fig.third.y][pos->x + figure->fig.third.x] = '.';

@@ -44,13 +44,11 @@ int					is_figure_fit(t_square *src, t_figure *figure, int x, int y)
 
 t_coord				*find_place(t_square *src, t_figure *figure)
 {
-	int				i;
 	int				x;
 	int				y;
 	int				size;
 
 	size = src->size;
-	i = -1;
 	y = -1;
 	while (++y < size)
 	{
@@ -66,11 +64,7 @@ t_coord				*find_place(t_square *src, t_figure *figure)
 t_coord				*find_pos(t_square *src, t_figure *figure)
 {
 	t_coord			*a;
-	int				k;
-	int				worth;
 
-	k = 2 * src->size - 2;
-	worth = (src->size - 1) * 2;
 	if (!(a = find_place(src, figure)))
 		return (NULL);
 	(src->map)[a->y][a->x] = '!';
