@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:17:29 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/23 22:31:59 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/25 22:09:46 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FILLIT_H
 
 # include "libft.h"
-
+#include <stdio.h>
 typedef struct		s_typeof_figure
 {
 	t_coord			first;
@@ -35,6 +35,12 @@ typedef struct		s_square
 	int		size;
 }					t_square;
 
+char				*clear_str_from_single_figures(char *a);
+char				*find_same_figures(t_figure **a, int count);
+int					compare_figures(t_figure *a, t_figure *b);
+void				print_usage(void);
+void				print_error(int fd, t_figure **a, int count);
+void				clean_them_all(t_figure **a, int count);
 int					get_solution(t_figure **a, int count, int size);
 void				del_figure(t_square *dst, t_figure *figure, t_coord *pos);
 void				place_figure(t_square *dst, t_figure *figure, t_coord *pos);

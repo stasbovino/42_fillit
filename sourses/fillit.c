@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 21:37:38 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/25 14:46:27 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/25 21:45:38 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int				fill_it(t_square **map, t_figure **figures, int count, int i)
 	int			ret;
 
 	if (!(tmp = copy_map(*map)))
-		return (-1);
+		return (-2);
 //	printf("~~ FIGURE IS %d ~~\n", i);
 	if (i < count)
 	{
@@ -28,12 +28,16 @@ int				fill_it(t_square **map, t_figure **figures, int count, int i)
 		{
 			place_figure(tmp, figures[i], pos);
 //			print_map(tmp);
-			if ((ret = fill_it(&tmp, figures, count, i + 1)) == -1)
+//			ft_putchar('\n');
+			if ((ret = fill_it(&tmp, figures, count, i + 1)) < 0)
 			{
 				del_figure(tmp, figures[i], pos);
 				free(pos);
+				if (ret == -2)
+					return (-2);
 //				printf("Не смог подставить\n");
 //				print_map(tmp);
+//				ft_putchar('\n');
 			}
 			else
 			{
@@ -54,12 +58,15 @@ int				fill_it(t_square **map, t_figure **figures, int count, int i)
 int				get_solution(t_figure **a, int count, int size)
 {
 	t_square	*map;
+	int			ret;
 
 	if (!(map = create_map(size)))
 		return (-1);
-	while (fill_it(&map, a, count, 0) != 1)
+	while ((ret = fill_it(&map, a, count, 0)) != 1)
 	{
 		clean_map(map);
+		if (ret == -2)
+			return (-1);
 		if (!(map = create_map(size++)))
 			return (-1);
 	}

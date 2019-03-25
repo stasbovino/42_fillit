@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:01:55 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/25 14:27:47 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/25 23:31:20 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		count_figures(int fd)
 	return (n);
 }
 
-int		clean_them_all(t_figure **a, int count)
+void	clean_them_all(t_figure **a, int count)
 {
 	int i;
 
@@ -49,18 +49,6 @@ int		clean_them_all(t_figure **a, int count)
 	}
 	free(a);
 	a = NULL;
-	return (-1);
-}
-
-void	print_usage(void)
-{
-}
-
-int		print_error(int fd)
-{
-	close(fd);
-	ft_putstr("error\n");
-	exit(1);
 }
 
 int		main(int argc, char **argv)
@@ -69,25 +57,28 @@ int		main(int argc, char **argv)
 	t_figure	**a;
 	int			i;
 	int			count;
+	char		*kek;
 
 	if (argc != 2)
 		print_usage();
 	else
 	{
 		i = -1;
-		fd = open(argv[1], O_RDONLY);
+		if ((fd = open(argv[1], O_RDONLY)) < 0)
+			print_error(-2, NULL, 0);
 		if ((count = (int)count_figures(fd)) == -1)
-			print_error(fd);
+			print_error(fd, NULL, 0);
 		close(fd);
 		fd = open(argv[1], O_RDONLY);
 		if (!(a = (t_figure**)malloc(sizeof(t_figure*) * count)))
-			print_error(fd);
+			print_error(fd, NULL, 0);
 		while (++i < count)
-		{
 			if (!(a[i] = read_figure(fd, i)))
-				print_error(fd);
-		}
-		get_solution(a, count, (int)ft_sqrt((count * 4), 1));
+				print_error(-1, a, count);
+		if (get_solution(a, count, (int)ft_sqrt((count * 4), 1)) == -1)
+			print_error(-1, a, count);
+		kek = find_same_figures(a, count);
+		printf("!%s!\n", kek);
 		clean_them_all(a, count);
 	}
 	return (0);
