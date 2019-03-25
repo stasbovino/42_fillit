@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:01:55 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/23 23:08:43 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/25 14:27:47 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	print_usage(void)
 int		print_error(int fd)
 {
 	close(fd);
-	printf("error\n");
+	ft_putstr("error\n");
 	exit(1);
 }
 
