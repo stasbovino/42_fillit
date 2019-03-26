@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 21:07:36 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/23 22:20:21 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/26 22:45:20 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ void			print_map(t_square *map)
 		j = 0;
 		while (tab[i][j])
 		{
-			ft_putchar(tab[i][j]);
+			if (ft_islower(tab[i][j]))
+				ft_putchar(tab[i][j] - 32);
+			else
+				ft_putchar(tab[i][j]);
 			j++;
 		}
 		ft_putchar('\n');
@@ -83,7 +86,7 @@ int				clean_map(t_square *map)
 	return (-1);
 }
 
-t_square		*copy_map(t_square *src)
+t_square		*copy_map(t_square *src, int opt)
 {
 	int			i;
 	char		**map;
@@ -105,7 +108,8 @@ t_square		*copy_map(t_square *src)
 		map[i] = ft_strcpy(map[i], (src->map)[i]);
 		while (++j < n)
 			if (map[i][j] == '!')
-				map[i][j] = '.';
+				if (opt == 1)
+					map[i][j] = '.';
 	}
 	a->map = map;
 	a->size = n;

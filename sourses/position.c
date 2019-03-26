@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 21:32:46 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/23 22:07:41 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/26 22:31:31 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ int					is_figure_fit(t_square *src, t_figure *figure, int x, int y)
 	map = src->map;
 	if (check_borders(src->size, y + figure->fig.second.y,
 				x + figure->fig.second.x))
-		if (!(ft_isupper(map[y + figure->fig.second.y]
+		if (!(ft_isalpha(map[y + figure->fig.second.y]
 						[x + figure->fig.second.x])))
 			if (check_borders(src->size, y + figure->fig.third.y,
 						x + figure->fig.third.x))
-				if (!(ft_isupper(map[y + figure->fig.third.y]
+				if (!(ft_isalpha(map[y + figure->fig.third.y]
 								[x + figure->fig.third.x])))
 					if (check_borders(src->size, y + figure->fig.fourth.y,
 								x + figure->fig.fourth.x))
-						if (!(ft_isupper(map[y + figure->fig.fourth.y]
+						if (!(ft_isalpha(map[y + figure->fig.fourth.y]
 								[x + figure->fig.fourth.x])))
 							return (1);
 	return (-1);

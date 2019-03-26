@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:45:22 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/25 23:35:26 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/26 16:59:55 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ char			*clear_str_from_single_figures(char *a)
 	char	*b;
 
 	i = -1;
-	printf("!%s!\n", a);
 	while (a[++i])
-	{
 		if (ft_isupper(a[i]))
+		{
 			if (!(ft_isupper(a[i + 1])))
 				if (i - 1 > 0 && !(ft_isupper(a[i - 1])))
 					a[i] = ' ';
-	}
-	printf("!%s!\n", a);
+		}
+		else
+			a[i] = ' ';
 	b = ft_strtrim_all(a);
 	if (ft_strlen(b) == 1)
 	{

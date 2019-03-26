@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:17:29 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/25 22:09:46 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/26 22:00:06 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct		s_square
 	int		size;
 }					t_square;
 
+int					map_restore(t_square *dst, char *opt, int i);
 char				*clear_str_from_single_figures(char *a);
 char				*find_same_figures(t_figure **a, int count);
 int					compare_figures(t_figure *a, t_figure *b);
@@ -48,7 +49,7 @@ t_coord				*find_pos(t_square *src, t_figure *figure);
 t_square			*create_map(int count);
 void				print_map(t_square *map);
 int					clean_map(t_square *map);
-t_square			*copy_map(t_square *src);
+t_square			*copy_map(t_square *src, int opt);
 t_figure			*read_figure(int fd, int n);
 int					check_line(char *tmp);
 int					valid_line(char *line);

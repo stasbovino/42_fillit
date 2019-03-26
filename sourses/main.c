@@ -6,14 +6,13 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:01:55 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/25 23:31:20 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/26 15:39:35 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
 #include <fcntl.h>
-#include <stdio.h>
 
 int		count_figures(int fd)
 {
@@ -57,7 +56,6 @@ int		main(int argc, char **argv)
 	t_figure	**a;
 	int			i;
 	int			count;
-	char		*kek;
 
 	if (argc != 2)
 		print_usage();
@@ -77,8 +75,6 @@ int		main(int argc, char **argv)
 				print_error(-1, a, count);
 		if (get_solution(a, count, (int)ft_sqrt((count * 4), 1)) == -1)
 			print_error(-1, a, count);
-		kek = find_same_figures(a, count);
-		printf("!%s!\n", kek);
 		clean_them_all(a, count);
 	}
 	return (0);
