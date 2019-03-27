@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:17:29 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/26 22:00:06 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/27 19:25:51 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FILLIT_H
 
 # include "libft.h"
-#include <stdio.h>
+
 typedef struct		s_typeof_figure
 {
 	t_coord			first;

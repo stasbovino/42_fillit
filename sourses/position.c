@@ -6,12 +6,11 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 21:32:46 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/26 22:31:31 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/27 19:26:22 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
 int					check_borders(int size, int x, int y)
 {

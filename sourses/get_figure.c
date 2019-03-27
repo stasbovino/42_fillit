@@ -6,13 +6,13 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:01:47 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/27 16:07:52 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/27 19:26:03 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
-#include <stdio.h>
+
 int				write_coord(int *x, int *y, char *line, int opt)
 {
 	static int i;

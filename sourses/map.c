@@ -6,12 +6,11 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 21:07:36 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/27 15:59:36 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/27 19:26:14 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
 t_square		*create_map(int size)
 {
@@ -72,6 +71,8 @@ int				clean_map(t_square *map)
 	int			i;
 	int			n;
 
+	if (!map)
+		return (0);
 	n = map->size;
 	i = 0;
 	while (i < n)
