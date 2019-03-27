@@ -59,7 +59,7 @@ char			*find_same_figures(t_figure **a, int count)
 	int		k;
 	int		j;
 
-	if (!(list = ft_strnew(count * 2)))
+	if (!(list = ft_strnew(count * 2 - 1)))
 		return (NULL);
 	i = -1;
 	k = 0;

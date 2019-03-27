@@ -15,6 +15,7 @@
 
 # include "libft.h"
 
+#include <stdio.h>
 typedef struct		s_typeof_figure
 {
 	t_coord			first;

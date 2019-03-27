@@ -57,7 +57,8 @@ int				get_solution(t_figure **a, int count, int size)
 	char		*equal_fig;
 
 	equal_fig = find_same_figures(a, count);
-	map_restore(NULL, equal_fig, count);
+	if (map_restore(NULL, equal_fig, count) == -1)
+		return (-1);
 	free(equal_fig);
 	if (!(map = create_map(size)))
 		return (-1);

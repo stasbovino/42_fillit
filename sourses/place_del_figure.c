@@ -92,7 +92,7 @@ int			map_restore(t_square *dst, char *opt, int i)
 	static int		count;
 	int				k;
 	static char		*eq = NULL;
-	char			*check;
+	char			*check = NULL;
 	int				last;
 
 	if (!tmp)
@@ -102,12 +102,13 @@ int			map_restore(t_square *dst, char *opt, int i)
 			if (!(eq = ft_strdup(opt)))
 				return (-1);
 		k = -1;
-		tmp = (t_square**)malloc(sizeof(t_square*) * count);
+		if (!(tmp = (t_square**)malloc(sizeof(t_square*) * count)))
+			return (-1);
 		while (++k < count)
 			tmp[k] = NULL;
 		return (0);
 	}
-	if (!eq)
+	if (!eq && ft_strcmp(opt, "clean") != 0)
 		return (0);
 	if (ft_strcmp(opt, "clean") == 0)
 	{
@@ -115,7 +116,8 @@ int			map_restore(t_square *dst, char *opt, int i)
 		while (++k < count)
 			clean_map(tmp[k]);
 		free(tmp);
-		free(eq);
+		if (eq)
+			free(eq);
 	}
 	if ((check = ft_strchr(eq, (char)(i + 65))))
 		{
@@ -128,6 +130,7 @@ int			map_restore(t_square *dst, char *opt, int i)
 				last = check[1] - 65;
 				if (!tmp[last] || tmp[last]->size != dst->size)
 					return (0);
+			restoration(dst, tmp[last]);
 			}
 		}
 	else
@@ -137,7 +140,5 @@ int			map_restore(t_square *dst, char *opt, int i)
 		clean_map(tmp[i]);
 		tmp[i] = copy_map(dst, 0);
 	}
-	else if (ft_strcmp(opt, "rest") == 0)
-		restoration(dst, tmp[last]);
 	return (0);
 }
