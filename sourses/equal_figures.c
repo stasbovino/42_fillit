@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:45:22 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/26 16:59:55 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/27 17:23:56 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,22 @@ char			*clear_str_from_single_figures(char *a)
 	while (a[++i])
 		if (ft_isupper(a[i]))
 		{
-			if (!(ft_isupper(a[i + 1])))
-				if (i - 1 > 0 && !(ft_isupper(a[i - 1])))
-					a[i] = ' ';
+			if (a[i + 1])
+				if (!(ft_isupper(a[i + 1])))
+					if (i - 1 >= 0 && !(ft_isupper(a[i - 1])))
+						a[i] = ' ';
 		}
 		else
 			a[i] = ' ';
 	b = ft_strtrim_all(a);
-	if (ft_strlen(b) == 1)
-	{
-		free(b);
-		b = NULL;
-	}
-	free(a);
+	if (b)
+		if (ft_strlen(b) == 1)
+		{
+			free(b);
+			b = NULL;
+		}
+	if (a)
+		free(a);
 	return (b);
 }
 
@@ -56,23 +59,28 @@ char			*find_same_figures(t_figure **a, int count)
 	int		k;
 	int		j;
 
-	if (!(list = ft_strnew(count * 2 - 1)))
+	if (!(list = ft_strnew(count * 2)))
 		return (NULL);
 	i = -1;
 	k = 0;
 	while (++i < count)
 	{
-		if (ft_strchr(list, a[i]->order))
+		if (ft_countchars(list, a[i]->order) == 1)
 			continue;
 		list[k++] = a[i]->order;
-		j = 0;
+		j = -1;
 		while (++j < count)
+		{
 			if (j == i)
 				continue;
 			else if (compare_figures(a[i], a[j]) == 1)
+			{
 				list[k++] = a[j]->order;
+			}
+		}
 		list[k++] = ' ';
 	}
+	list[k] = '\0';
 	list = clear_str_from_single_figures(list);
 	return (list);
 }

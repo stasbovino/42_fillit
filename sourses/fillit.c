@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 21:37:38 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/26 23:02:00 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/27 17:43:45 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,26 @@ int				fill_it(t_square **map, t_figure **figures, int count, int i)
 
 	if (!(tmp = copy_map(*map, 1)))
 		return (-2);
-//	printf("~~ FIGURE IS %d ~~\n", i);
+//	printf("~~ FIGURE IS %c ~~\n", i + 65);
 	if (i < count)
 	{
 		while ((pos = find_pos(tmp, figures[i])))
 		{
 			place_figure(tmp, figures[i], pos);
+//			printf("\n	NEW PLACE FOR %c:\n", i + 65);
 //			print_map(tmp);
 //			ft_putchar('\n');
 			if ((ret = fill_it(&tmp, figures, count, i + 1)) < 0)
 			{
+//				printf("\n~~ FIGURE IS %c ~~\n", i + 65);
 				del_figure(tmp, figures[i], pos);
+//				printf("Deleted %c\n", i + 65);
+//				print_map(tmp);
+//				ft_putchar('\n');
 				map_restore(tmp, "rest", i);
 				free(pos);
 				if (ret == -2)
 					return (-2);
-//				printf("Не смог подставить\n");
-//				print_map(tmp);
-//				ft_putchar('\n');
 			}
 			else
 			{
@@ -49,6 +51,7 @@ int				fill_it(t_square **map, t_figure **figures, int count, int i)
 				return (1);
 			}
 		}
+//		printf("NET MESTA FOR %c\n\n", i + 65);
 		map_restore(tmp, "save", i);
 		clean_map(tmp);
 		return (-1);
@@ -75,9 +78,10 @@ int				get_solution(t_figure **a, int count, int size)
 	t_square	*map;
 	int			ret;
 	char		*equal_fig;
+	int			i;
 
 	equal_fig = find_same_figures(a, count);
-//	printf("eq is %s\n", equal_fig);
+	i = -1;
 	map_restore(NULL, equal_fig, count);
 	if (!(map = create_map(size)))
 		return (-1);
