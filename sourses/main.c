@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:01:55 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/26 15:39:35 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/28 17:47:04 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,23 +59,20 @@ int		main(int argc, char **argv)
 
 	if (argc != 2)
 		print_usage();
-	else
-	{
-		i = -1;
-		if ((fd = open(argv[1], O_RDONLY)) < 0)
-			print_error(-2, NULL, 0);
-		if ((count = (int)count_figures(fd)) == -1)
-			print_error(fd, NULL, 0);
-		close(fd);
-		fd = open(argv[1], O_RDONLY);
-		if (!(a = (t_figure**)malloc(sizeof(t_figure*) * count)))
-			print_error(fd, NULL, 0);
-		while (++i < count)
-			if (!(a[i] = read_figure(fd, i)))
-				print_error(-1, a, count);
-		if (get_solution(a, count, (int)ft_sqrt((count * 4), 1)) == -1)
+	i = -1;
+	if ((fd = open(argv[1], O_RDONLY)) < 0)
+		print_error(-2, NULL, 0);
+	if ((count = (int)count_figures(fd)) == -1)
+		print_error(fd, NULL, 0);
+	close(fd);
+	fd = open(argv[1], O_RDONLY);
+	if (!(a = (t_figure**)malloc(sizeof(t_figure*) * count)))
+		print_error(fd, NULL, 0);
+	while (++i < count)
+		if (!(a[i] = read_figure(fd, i)))
 			print_error(-1, a, count);
-		clean_them_all(a, count);
-	}
+	if (get_solution(a, count, (int)ft_sqrt((count * 4), 1)) == -1)
+		print_error(-1, a, count);
+	clean_them_all(a, count);
 	return (0);
 }

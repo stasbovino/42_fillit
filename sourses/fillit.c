@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 21:37:38 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/27 19:19:47 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/28 18:39:30 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,36 +18,36 @@ int				fill_it(t_square **map, t_figure **figures, int count, int i)
 	t_square	*tmp;
 	int			ret;
 
+	if (i >= count)
+		return (0);
 	if (!(tmp = copy_map(*map, 1)))
 		return (-2);
-	if (i < count)
+	while ((pos = find_pos(tmp, figures[i])))
 	{
-		while ((pos = find_pos(tmp, figures[i])))
+		place_figure(tmp, figures[i], pos);
+		if ((ret = fill_it(&tmp, figures, count, i + 1)) < 0)
 		{
-			place_figure(tmp, figures[i], pos);
-			if ((ret = fill_it(&tmp, figures, count, i + 1)) < 0)
+			if (ret == -2)
 			{
-				del_figure(tmp, figures[i], pos);
-				map_restore(tmp, "rest", i);
-				free(pos);
-				if (ret == -2)
-					return (-2);
-			}
-			else
-			{
-				free(pos);
-				if (ret == 0)
-					print_map(tmp);
 				clean_map(tmp);
-				return (1);
+				return (-2);
 			}
+			del_figure(tmp, figures[i], pos);
+			map_restore(tmp, "rest", i);
+			free(pos);
 		}
-		map_restore(tmp, "save", i);
-		clean_map(tmp);
-		return (-1);
+		else
+		{
+			free(pos);
+			if (ret == 0)
+				print_map(tmp);
+			clean_map(tmp);
+			return (1);
+		}
 	}
+	map_restore(tmp, "save", i);
 	clean_map(tmp);
-	return (0);
+	return (-1);
 }
 
 int				get_solution(t_figure **a, int count, int size)
@@ -70,7 +70,7 @@ int				get_solution(t_figure **a, int count, int size)
 		if (!(map = create_map(size++)))
 			return (-1);
 	}
-	map_restore(NULL,"clean", count);
+	map_restore(NULL, "clean", count);
 	clean_map(map);
 	return (0);
 }

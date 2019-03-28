@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 21:07:36 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/27 19:26:14 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/28 18:29:43 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,8 @@ t_square		*copy_map(t_square *src, int opt)
 			return (NULL);
 		map[i] = ft_strcpy(map[i], (src->map)[i]);
 		while (++j < n)
-			if (map[i][j] == '!')
-				if (opt == 1)
-					map[i][j] = '.';
+			if (map[i][j] == '!' && opt == 1)
+				map[i][j] = '.';
 	}
 	a->map = map;
 	a->size = n;

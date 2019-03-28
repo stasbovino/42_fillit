@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:45:22 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/27 17:23:56 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/28 17:43:22 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char			*find_same_figures(t_figure **a, int count)
 	int		k;
 	int		j;
 
-	if (!(list = ft_strnew(count * 2 - 1)))
+	if (!(list = ft_strnew(count * 2)))
 		return (NULL);
 	i = -1;
 	k = 0;
@@ -70,14 +70,10 @@ char			*find_same_figures(t_figure **a, int count)
 		list[k++] = a[i]->order;
 		j = -1;
 		while (++j < count)
-		{
 			if (j == i)
 				continue;
 			else if (compare_figures(a[i], a[j]) == 1)
-			{
 				list[k++] = a[j]->order;
-			}
-		}
 		list[k++] = ' ';
 	}
 	list[k] = '\0';

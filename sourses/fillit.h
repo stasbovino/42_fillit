@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:17:29 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/27 19:25:51 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/28 18:32:54 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "libft.h"
 
-#include <stdio.h>
 typedef struct		s_typeof_figure
 {
 	t_coord			first;
@@ -36,6 +35,10 @@ typedef struct		s_square
 	int		size;
 }					t_square;
 
+int					mapr_opt_rest(t_square **tmp, t_square *dst, char *check);
+int					mapr_opt_clean(t_square **tmp, char *eq, int count);
+int					mapr_opt_init(t_square ***tmp, int *count, int i);
+int					mapr_opt_save(t_square **tmp, t_square *dst, int i);
 int					map_restore(t_square *dst, char *opt, int i);
 char				*clear_str_from_single_figures(char *a);
 char				*find_same_figures(t_figure **a, int count);

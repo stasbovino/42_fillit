@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/23 22:19:36 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/27 19:24:52 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/28 18:35:53 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,76 +69,29 @@ void		del_figure(t_square *dst, t_figure *figure, t_coord *pos)
 		[pos->x + figure->fig.fourth.x] = c;
 }
 
-void		restoration(t_square *dst, t_square *src)
-{
-	int		x;
-	int		y;
-	int		n;
-
-	n = src->size;
-	y = -1;
-	while (++y < n)
-	{
-		x = -1;
-		while (++x < n)
-			if ((src->map)[y][x] == '!')
-				(dst->map)[y][x] = '!';
-	}
-}
-
 int			map_restore(t_square *dst, char *opt, int i)
 {
 	static t_square **tmp = NULL;
 	static int		count;
-	int				k;
 	static char		*eq = NULL;
-	char			*check = NULL;
-	int				last;
+	char			*check;
 
 	if (!tmp)
 	{
-		count = i;
 		if (opt)
 			if (!(eq = ft_strdup(opt)))
 				return (-1);
-		k = -1;
-		if (!(tmp = (t_square**)malloc(sizeof(t_square*) * count)))
-			return (-1);
-		while (++k < count)
-			tmp[k] = NULL;
-		return (0);
+		return (mapr_opt_init(&tmp, &count, i));
 	}
-	if (!eq && ft_strcmp(opt, "clean") != 0)
-		return (0);
 	if (ft_strcmp(opt, "clean") == 0)
-	{
-		k = -1;
-		while (++k < count)
-			clean_map(tmp[k]);
-		free(tmp);
-		if (eq)
-			free(eq);
-	}
-	if ((check = ft_strchr(eq, (char)(i + 65))))
+		return (mapr_opt_clean(tmp, eq, count));
+	if (eq)
+		if ((check = ft_strchr(eq, (char)(i + 65))))
 		{
-			if (ft_strcmp("rest", opt) == 0)
-			{
-				if (!(check[1]))
-					return (0);
-				if (!(ft_isupper(check[1])))
-					return (0);
-				last = check[1] - 65;
-				if (!tmp[last] || tmp[last]->size != dst->size)
-					return (0);
-			restoration(dst, tmp[last]);
-			}
+			if (ft_strcmp(opt, "rest") == 0)
+				return (mapr_opt_rest(tmp, dst, check));
+			else if (ft_strcmp(opt, "save") == 0)
+				return (mapr_opt_save(tmp, dst, i));
 		}
-	else
-		return (0);
-	if (ft_strcmp(opt, "save") == 0)
-	{
-		clean_map(tmp[i]);
-		tmp[i] = copy_map(dst, 0);
-	}
 	return (0);
 }

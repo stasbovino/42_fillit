@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 17:11:03 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/25 21:32:49 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/28 17:47:25 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	print_usage(void)
 	ft_putstr("		..#.	....	....	....	....	....	....\n\n");
 	ft_putstr("	Fillit does not rotate figure to place it in better way.\n");
 	ft_putstr("	All rotations of figure counts like a new figure.\n");
+	exit(1);
 }
 
 void	print_error(int fd, t_figure **a, int count)
