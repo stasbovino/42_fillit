@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 18:31:13 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/28 18:36:11 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/28 20:10:11 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int			mapr_opt_clean(t_square **tmp, char *eq, int count)
 {
 	int			k;
 
-	k = 0;
+	k = -1;
 	while (++k < count)
 		clean_map(tmp[k]);
 	free(tmp);
