@@ -6,32 +6,30 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 21:37:38 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/28 18:39:30 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/28 19:37:51 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int				fill_it(t_square **map, t_figure **figures, int count, int i)
+int				clean_and_ret(t_square *tmp, int ret)
 {
-	t_coord		*pos;
-	t_square	*tmp;
-	int			ret;
+	clean_map(tmp);
+	return (ret);
+}
 
-	if (i >= count)
-		return (0);
-	if (!(tmp = copy_map(*map, 1)))
-		return (-2);
+int				place_it(t_square *tmp, t_figure **figures, int count, int i)
+{
+	t_coord	*pos;
+	int		ret;
+
 	while ((pos = find_pos(tmp, figures[i])))
 	{
 		place_figure(tmp, figures[i], pos);
 		if ((ret = fill_it(&tmp, figures, count, i + 1)) < 0)
 		{
 			if (ret == -2)
-			{
-				clean_map(tmp);
-				return (-2);
-			}
+				return (clean_and_ret(tmp, -2));
 			del_figure(tmp, figures[i], pos);
 			map_restore(tmp, "rest", i);
 			free(pos);
@@ -41,10 +39,23 @@ int				fill_it(t_square **map, t_figure **figures, int count, int i)
 			free(pos);
 			if (ret == 0)
 				print_map(tmp);
-			clean_map(tmp);
-			return (1);
+			return (clean_and_ret(tmp, 1));
 		}
 	}
+	return (3);
+}
+
+int				fill_it(t_square **map, t_figure **figures, int count, int i)
+{
+	t_square	*tmp;
+	int			ret;
+
+	if (i >= count)
+		return (0);
+	if (!(tmp = copy_map(*map, 1)))
+		return (-2);
+	if ((ret = place_it(tmp, figures, count, i)) != 3)
+		return (ret);
 	map_restore(tmp, "save", i);
 	clean_map(tmp);
 	return (-1);

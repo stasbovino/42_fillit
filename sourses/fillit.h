@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:17:29 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/28 18:32:54 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/03/28 19:38:10 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct		s_square
 	int		size;
 }					t_square;
 
+int					fill_it(t_square **map, t_figure **figures,
+		int count, int i);
 int					mapr_opt_rest(t_square **tmp, t_square *dst, char *check);
 int					mapr_opt_clean(t_square **tmp, char *eq, int count);
 int					mapr_opt_init(t_square ***tmp, int *count, int i);
