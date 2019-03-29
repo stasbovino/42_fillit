@@ -31,7 +31,7 @@ void	print_error(int fd, t_figure **a, int count)
 	ft_putstr("error\n");
 	if (fd != -1)
 		close(fd);
-	else if (fd >= 0)
+	else
 		clean_them_all(a, count);
 	exit(1);
 }
