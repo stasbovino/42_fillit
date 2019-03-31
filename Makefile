@@ -17,7 +17,7 @@ FLAGS = -Wall -Wextra -Werror
 LIBFT = -L libft/ -lft
 
 CFILES = main.c check_valid.c get_figure.c read_figure.c map.c fillit.c \
-		 position.c place_del_figure.c print.c equal_figures.c mapr_opts.c
+		 position.c place_del_figure.c equal_figures.c mapr_opts.c
 
 SRC_DIR = sourses/
 

@@ -31,7 +31,7 @@ int				check_line(char *tmp)
 	return (1);
 }
 
-int				find_sharps(char **line, int i, int opt)
+static int		find_sharps(char **line, int i, int opt)
 {
 	static int	k;
 

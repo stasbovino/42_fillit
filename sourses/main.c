@@ -14,7 +14,7 @@
 #include "fillit.h"
 #include <fcntl.h>
 
-int		count_figures(int fd)
+static int	count_figures(int fd)
 {
 	int		r;
 	char	*line;
@@ -36,7 +36,7 @@ int		count_figures(int fd)
 	return (n);
 }
 
-void	clean_them_all(t_figure **a, int count)
+static void	clean_them_all(t_figure **a, int count)
 {
 	int i;
 
@@ -48,6 +48,30 @@ void	clean_them_all(t_figure **a, int count)
 	}
 	free(a);
 	a = NULL;
+}
+
+static void	print_usage(void)
+{
+	ft_putstr("usage: ./fillit source_file\n");
+	ft_putstr("	Source file must contain between 1 and 26 Tetriminos.\n");
+	ft_putstr("	Example of Tetriminos:\n\n");
+	ft_putstr("		..#.	.##.	.##.	.#..	....	....	....\n");
+	ft_putstr("		..#.	..#.	.#..	.##.	.##.	..##	##..\n");
+	ft_putstr("		..#.	..#.	.#..	.#..	.##.	.##.	.##.\n");
+	ft_putstr("		..#.	....	....	....	....	....	....\n\n");
+	ft_putstr("	Fillit does not rotate figure to place it in better way.\n");
+	ft_putstr("	All rotations of figure counts like a new figure.\n");
+	exit(1);
+}
+
+static void	print_error(int fd, t_figure **a, int count)
+{
+	ft_putstr("error\n");
+	if (fd != -1)
+		close(fd);
+	else
+		clean_them_all(a, count);
+	exit(1);
 }
 
 int		main(int argc, char **argv)

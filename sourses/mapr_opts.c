@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-void		restoration(t_square *dst, t_square *src)
+static void	restoration(t_square *dst, t_square *src)
 {
 	int		x;
 	int		y;

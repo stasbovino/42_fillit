@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "fillit.h"
 
-int				write_coord(int *x, int *y, char *line, int opt)
+static int		write_coord(int *x, int *y, char *line, int opt)
 {
 	static int i;
 	static int start;

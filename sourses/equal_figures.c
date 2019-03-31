@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-int				compare_figures(t_figure *a, t_figure *b)
+static int		compare_figures(t_figure *a, t_figure *b)
 {
 	if ((a->fig.second.x == b->fig.second.x) &&
 			(a->fig.second.y == b->fig.second.y))
@@ -24,7 +24,7 @@ int				compare_figures(t_figure *a, t_figure *b)
 	return (-1);
 }
 
-char			*clear_str_from_single_figures(char *a)
+static char		*clear_str_from_single_figures(char *a)
 {
 	int		i;
 	char	*b;

@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "fillit.h"
 
-int				end_reading(int fd)
+static int		end_reading(int fd)
 {
 	char		*tmp;
 
@@ -23,7 +23,7 @@ int				end_reading(int fd)
 	return (-1);
 }
 
-int				read_one_line(int fd, char **line)
+static int		read_one_line(int fd, char **line)
 {
 	int			i;
 	char		*tmp;

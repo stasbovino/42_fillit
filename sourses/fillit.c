@@ -12,13 +12,13 @@
 
 #include "fillit.h"
 
-int				clean_and_ret(t_square *tmp, int ret)
+static int		clean_and_ret(t_square *tmp, int ret)
 {
 	clean_map(tmp);
 	return (ret);
 }
 
-int				place_it(t_square *tmp, t_figure **figures, int count, int i)
+static int		place_it(t_square *tmp, t_figure **figures, int count, int i)
 {
 	t_coord	*pos;
 	int		ret;
@@ -45,7 +45,7 @@ int				place_it(t_square *tmp, t_figure **figures, int count, int i)
 	return (3);
 }
 
-int				fill_it(t_square **map, t_figure **figures, int count, int i)
+int		fill_it(t_square **map, t_figure **figures, int count, int i)
 {
 	t_square	*tmp;
 	int			ret;

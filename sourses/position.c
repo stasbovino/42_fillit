@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-int					check_borders(int size, int x, int y)
+static int			check_borders(int size, int x, int y)
 {
 	if (x < size && y < size && x >= 0 && y >= 0)
 		return (1);
@@ -20,7 +20,7 @@ int					check_borders(int size, int x, int y)
 		return (0);
 }
 
-int					is_figure_fit(t_square *src, t_figure *figure, int x, int y)
+static int			is_figure_fit(t_square *src, t_figure *figure, int x, int y)
 {
 	char			**map;
 
@@ -41,7 +41,7 @@ int					is_figure_fit(t_square *src, t_figure *figure, int x, int y)
 	return (-1);
 }
 
-t_coord				*find_place(t_square *src, t_figure *figure)
+static t_coord		*find_place(t_square *src, t_figure *figure)
 {
 	int				x;
 	int				y;
