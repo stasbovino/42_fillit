@@ -35,7 +35,7 @@ static char		*clear_str_from_single_figures(char *a)
 		{
 			if (a[i + 1])
 				if (!(ft_isupper(a[i + 1])))
-					if (i - 1 >= 0 && !(ft_isupper(a[i - 1])))
+					if (i == 0 || (i - 1 >= 0 && !(ft_isupper(a[i - 1]))))
 						a[i] = ' ';
 		}
 		else

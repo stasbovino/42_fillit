@@ -25,7 +25,8 @@ static void	restoration(t_square *dst, t_square *src)
 		x = -1;
 		while (++x < n)
 			if ((src->map)[y][x] == '!')
-				(dst->map)[y][x] = '!';
+				if (dst->map[y][x] == '.')
+					(dst->map)[y][x] = '!';
 	}
 }
 
@@ -58,15 +59,30 @@ int			mapr_opt_clean(t_square **tmp, char *eq, int count)
 int			mapr_opt_rest(t_square **tmp, t_square *dst, char *check)
 {
 	int		last;
+	size_t	len;
 
-	if (!(check[1]) || !(ft_isupper(check[1])))
+//	printf("check is %s\n", check);
+	len = ft_strlen(check);
+	if (len == 0 || len == 1) 
 		return (0);
-	last = check[1] - 65;
+	if (check[len - 1] == ' ' || !(check[len - 2]) || !(ft_isupper(check[len - 2])))
+		return (0);
+	last = check[len - 2] - 65;
+//	printf("LAST IS:\n");
+//	print_map(tmp[last]);
+//	printf("tmp[%c]->size %d != dst->size %d\n", last + 65, tmp[last]->size, dst->size);
 	if (!tmp[last] || tmp[last]->size != dst->size)
 		return (0);
 	restoration(dst, tmp[last]);
+/*	ft_putchar('\n');
+	ft_putstr("restored from ");
+	ft_putchar(last + 65);
+	ft_putchar('\n');
+	ft_putchar('\n');*/
+//	printf("	restored from %c\n", last + 65);
 	return (0);
 }
+
 
 int			mapr_opt_save(t_square **tmp, t_square *dst, int i)
 {
