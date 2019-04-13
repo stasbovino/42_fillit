@@ -56,24 +56,25 @@ int			mapr_opt_clean(t_square **tmp, char *eq, int count)
 	return (0);
 }
 
-int			mapr_opt_rest(t_square **tmp, t_square *dst, char *check)
+int			mapr_opt_rest(t_square **tmp, t_square *dst, char **check)
 {
 	int		last;
 	size_t	len;
 
 //	printf("check is %s\n", check);
-	len = ft_strlen(check);
+	len = ft_strlen(*check);
 	if (len == 0 || len == 1) 
 		return (0);
-	if (check[len - 1] == ' ' || !(check[len - 2]) || !(ft_isupper(check[len - 2])))
+	if ((*check)[len - 1] == ' ' || !((*check)[len - 2]) || !(ft_isupper((*check)[len - 2])))
 		return (0);
-	last = check[len - 2] - 65;
+	last = (*check)[len - 2] - 65;
 //	printf("LAST IS:\n");
 //	print_map(tmp[last]);
 //	printf("tmp[%c]->size %d != dst->size %d\n", last + 65, tmp[last]->size, dst->size);
 	if (!tmp[last] || tmp[last]->size != dst->size)
 		return (0);
 	restoration(dst, tmp[last]);
+	free(*check);
 /*	ft_putchar('\n');
 	ft_putstr("restored from ");
 	ft_putchar(last + 65);

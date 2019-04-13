@@ -146,6 +146,7 @@ int			mapr_opt_solut(t_square *dst, char *eq)
 //			print_map(dst);
 		}
 	}
+	free(order);
 	return (1);
 }
 
@@ -174,10 +175,17 @@ int			map_restore(t_square *dst, char *opt, int i)
 		if (ft_strchr(eq, (char)(i + 65)))
 			if (ft_strcpy_whilech(&check, eq, (char)(i + 65)))
 			{
+				printf("letter is %c, eq is %s, check is %s, opt is %s\n", i + 65, eq, check, opt);
 				if (ft_strcmp(opt, "rest") == 0)
-					return (mapr_opt_rest(tmp, dst, check));
+				{
+					return (mapr_opt_rest(tmp, dst, &check));
+				}
 				else if (ft_strcmp(opt, "save") == 0)
+				{
+					free(check);
 					return (mapr_opt_save(tmp, dst, i));
+				}
+				free(check);
 			}
 	return (0);
 }

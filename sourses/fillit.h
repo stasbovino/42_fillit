@@ -37,7 +37,7 @@ typedef struct		s_square
 
 int					fill_it(t_square **map, t_figure **figures,
 		int count, int i);
-int					mapr_opt_rest(t_square **tmp, t_square *dst, char *check);
+int					mapr_opt_rest(t_square **tmp, t_square *dst, char **check);
 int					mapr_opt_clean(t_square **tmp, char *eq, int count);
 int					mapr_opt_init(t_square ***tmp, int *count, int i);
 int					mapr_opt_save(t_square **tmp, t_square *dst, int i);
