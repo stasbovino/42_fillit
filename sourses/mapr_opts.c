@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 18:31:13 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/28 20:10:11 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/04/13 20:22:37 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,19 @@ int			mapr_opt_rest(t_square **tmp, t_square *dst, char **check)
 	int		last;
 	size_t	len;
 
-//	printf("check is %s\n", check);
 	len = ft_strlen(*check);
 	if (len == 0 || len == 1)
 	{
 		free(*check);
 		return (0);
 	}
-	if ((*check)[len - 1] == ' ' || !((*check)[len - 2]) || !(ft_isupper((*check)[len - 2])))
+	if ((*check)[len - 1] == ' ' || !((*check)[len - 2]) ||
+			!(ft_isupper((*check)[len - 2])))
 	{
 		free(*check);
 		return (0);
 	}
 	last = (*check)[len - 2] - 65;
-//	printf("LAST IS:\n");
-//	print_map(tmp[last]);
-//	printf("tmp[%c]->size %d != dst->size %d\n", last + 65, tmp[last]->size, dst->size);
 	if (!tmp[last] || tmp[last]->size != dst->size)
 	{
 		free(*check);
@@ -84,18 +81,12 @@ int			mapr_opt_rest(t_square **tmp, t_square *dst, char **check)
 	}
 	restoration(dst, tmp[last]);
 	free(*check);
-/*	ft_putchar('\n');
-	ft_putstr("restored from ");
-	ft_putchar(last + 65);
-	ft_putchar('\n');
-	ft_putchar('\n');*/
-//	printf("	restored from %c\n", last + 65);
 	return (0);
 }
 
-
-int			mapr_opt_save(t_square **tmp, t_square *dst, int i)
+int			mapr_opt_save(t_square **tmp, t_square *dst, int i, char **check)
 {
+	free(*check);
 	clean_map(tmp[i]);
 	if (!(tmp[i] = copy_map(dst, 0)))
 		return (-1);

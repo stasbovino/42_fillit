@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 21:07:36 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/28 20:08:39 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/04/13 18:34:52 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,16 @@ void			print_map(t_square *map)
 		j = 0;
 		while (tab[i][j])
 		{
-	//		printf("\ntab[%d][%d] is %c\n", i, j, tab[i][j]);
 			if (ft_islower(tab[i][j]))
 				ft_putchar(tab[i][j] - 32);
 			if (tab[i][j] == '!')
-			{
-	//			printf("\nnashel!\n");
 				ft_putchar('.');
-			}
 			if (ft_isupper(tab[i][j]) || tab[i][j] == '.')
 				ft_putchar(tab[i][j]);
 			j++;
 		}
 		ft_putchar('\n');
 	}
-	return ;
 }
 
 int				clean_map(t_square *map)
@@ -92,33 +87,7 @@ int				clean_map(t_square *map)
 	map = NULL;
 	return (-1);
 }
-/*
-void			clear_map(t_square *map)
-{
-	int			i;
-	int			n;
 
-	if (!map)
-		return (0);
-	n = map->size;
-	i = -1;
-	while (++i < n)
-	{
-		j = 0;
-		while (tab[i][j])
-		{
-			if (ft_islower(tab[i][j]))
-				ft_putchar(tab[i][j] - 32);
-			else if (tab[i][j] == '!')
-				ft_putchar('.');
-			else
-				ft_putchar(tab[i][j]);
-			j++;
-		}
-		ft_putchar('\n');
-	}
-}
-*/
 t_square		*copy_map(t_square *src, int opt)
 {
 	int			i;

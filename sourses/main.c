@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:01:55 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/28 17:47:04 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/04/13 18:36:33 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	print_error(int fd, t_figure **a, int count)
 	exit(1);
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	int			fd;
 	t_figure	**a;

@@ -6,7 +6,7 @@
 /*   By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:17:29 by gwyman-m          #+#    #+#             */
-/*   Updated: 2019/03/28 19:38:10 by gwyman-m         ###   ########.fr       */
+/*   Updated: 2019/04/13 20:23:24 by gwyman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FILLIT_H
 
 # include "libft.h"
-#include <stdio.h>
+
 typedef struct		s_typeof_figure
 {
 	t_coord			first;
@@ -40,8 +40,9 @@ int					fill_it(t_square **map, t_figure **figures,
 int					mapr_opt_rest(t_square **tmp, t_square *dst, char **check);
 int					mapr_opt_clean(t_square **tmp, char *eq, int count);
 int					mapr_opt_init(t_square ***tmp, int *count, int i);
-int					mapr_opt_save(t_square **tmp, t_square *dst, int i);
-int					map_restore(t_square *dst, char *opt, int i);
+int					mapr_opt_save(t_square **tmp, t_square *dst, int i,
+		char **check);
+int					map_restore(t_square *dst, char *opt, int i, char *check);
 char				*find_same_figures(t_figure **a, int count);
 int					get_solution(t_figure **a, int count, int size);
 void				del_figure(t_square *dst, t_figure *figure, t_coord *pos);
