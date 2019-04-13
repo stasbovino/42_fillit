@@ -175,7 +175,7 @@ int			map_restore(t_square *dst, char *opt, int i)
 		if (ft_strchr(eq, (char)(i + 65)))
 			if (ft_strcpy_whilech(&check, eq, (char)(i + 65)))
 			{
-				printf("letter is %c, eq is %s, check is %s, opt is %s\n", i + 65, eq, check, opt);
+	//			printf("letter is %c, eq is %s, check is %s, opt is %s\n", i + 65, eq, check, opt);
 				if (ft_strcmp(opt, "rest") == 0)
 				{
 					return (mapr_opt_rest(tmp, dst, &check));
@@ -185,7 +185,6 @@ int			map_restore(t_square *dst, char *opt, int i)
 					free(check);
 					return (mapr_opt_save(tmp, dst, i));
 				}
-				free(check);
 			}
 	return (0);
 }

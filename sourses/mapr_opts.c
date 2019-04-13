@@ -63,16 +63,25 @@ int			mapr_opt_rest(t_square **tmp, t_square *dst, char **check)
 
 //	printf("check is %s\n", check);
 	len = ft_strlen(*check);
-	if (len == 0 || len == 1) 
+	if (len == 0 || len == 1)
+	{
+		free(*check);
 		return (0);
+	}
 	if ((*check)[len - 1] == ' ' || !((*check)[len - 2]) || !(ft_isupper((*check)[len - 2])))
+	{
+		free(*check);
 		return (0);
+	}
 	last = (*check)[len - 2] - 65;
 //	printf("LAST IS:\n");
 //	print_map(tmp[last]);
 //	printf("tmp[%c]->size %d != dst->size %d\n", last + 65, tmp[last]->size, dst->size);
 	if (!tmp[last] || tmp[last]->size != dst->size)
+	{
+		free(*check);
 		return (0);
+	}
 	restoration(dst, tmp[last]);
 	free(*check);
 /*	ft_putchar('\n');
