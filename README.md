@@ -39,4 +39,4 @@ The result will be the optimal place of all figures in minimal square with prior
 AACCD \
 BBCCD \
 .BB.D \
-..... \
+.....
