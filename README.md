@@ -47,4 +47,4 @@ BBCCD \
 `./fillit [file]`\
 examples of start with files:\
 `./fillit test/4f`\
-`./fillit test/13feq+`\
+`./fillit test/13feq+`
