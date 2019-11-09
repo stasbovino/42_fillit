@@ -11,7 +11,7 @@ the popular game Tetris.
 </p>  
 
 The program gets as argument a file, format as list of tetriminos as at the picture.
-In folder /test you can find invalid and valid test-files, for example valid file 4f:
+In folder `/test` you can find invalid and valid test-files, for example valid file `4f`:
  \
 .... \
 .##. \
@@ -40,3 +40,11 @@ AACCD \
 BBCCD \
 .BB.D \
 .....
+
+
+#### Usage:
+`make`\
+`./fillit [file]`
+examples of start with files:
+`./fillit test/4f`
+`./fillit test/13feq+`
