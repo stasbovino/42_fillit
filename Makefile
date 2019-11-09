@@ -6,13 +6,13 @@
 #    By: gwyman-m <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/15 15:08:42 by gwyman-m          #+#    #+#              #
-#    Updated: 2019/04/13 19:42:48 by gwyman-m         ###   ########.fr        #
+#    Updated: 2019/11/09 17:35:56 by gwyman-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fillit
 
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -g -I sourses -I libft/includes
 
 LIBFT = -L libft/ -lft
 
@@ -24,16 +24,30 @@ SRC_DIR = sourses/
 
 SRC = $(addprefix $(SRC_DIR),$(CFILES))
 
-OBJ = $(CFILES:%.c=%.o)
+OBJ = $(SRC:%.c=%.o)
 
-all: $(NAME)
+VPATH := sourses
 
-$(NAME): $(OBJ) $(SRC_DIR)fillit.h
+submodule = `git submodule | grep "-"`
+
+.PHONY: subm all clean fclean re
+
+.SILENT: subm
+
+all: subm $(NAME)
+
+subm:
+	if [[ -n $(submodule) ]]; then\
+		git submodule init;\
+		git submodule update;\
+	fi
+
+$(NAME): $(OBJ)
 	make -C libft
 	gcc $(FLAGS) $(OBJ) -o $(NAME) $(LIBFT)
 
-$(OBJ): $(SRC)
-	gcc $(FLAGS) -c $(SRC) -Ilibft/includes
+%.o: %.c $(SRC_DIR)fillit.h
+	gcc $(FLAGS) -c $< -o $@
 
 clean:
 	make clean -C ./libft
